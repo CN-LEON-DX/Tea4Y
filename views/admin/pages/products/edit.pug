@@ -5,7 +5,7 @@ block main
     +alert-error()
     +alert-success()
     div(class="flex")
-        div(class="menu flex-shrink-0 w-48 p-4 bg-gray-700 h-screen")
+        div(class="menu flex-shrink-0 w-48 p-4 bg-gray-700 ")
             a(href="/admin/dashboard" class="block py-2 text-white") Dashboard
             a(href="/admin/products" class="block py-2 text-white") Product
         div(class="list-product flex-grow p-4 relative")
@@ -44,6 +44,9 @@ block main
                     label(for="position" class="mb-2 block font-semibold") Position
                     input(type="number" name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${product.position}`) 
                     
+                    label(for="tags" class="mb-2 block font-semibold") Tags
+                    input(type="text" name="tags" id="tags" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${product.tags ? product.tags : "Empty"}`)
+
 
                 div
                     div(upload-image)
@@ -52,12 +55,10 @@ block main
                         img(src=product.thumbnail upload-image-preview class="object-cover mb-4" style="width: 60px; height: 60px;")
                     
                     label(for="description" class="mb-2 block font-semibold") Description
-                    textarea(name="description" hiddenid="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded" )   #{product.description}
+                    textarea(name="description" hiddenid="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded tinymce-editor" )   #{product.description}
 
                     
-                    label(for="tags" class="mb-2 block font-semibold") Tags
-                    input(type="text" name="tags" id="tags" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${product.tags ? product.tags : "Empty"}`)
-
+                    
                     label(for="brand" class="mb-2 block font-semibold") Brand
                     input(type="text" name="brand" id="brand"  class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${product.brand ? product.brand : "Empty"}`) 
 

@@ -3,7 +3,7 @@ include ../../mixins/alert.pug
 block main
     +alert-error()
     div(class="flex")
-        div(class="menu flex-shrink-0 w-48 p-4 bg-gray-700 h-screen")
+        div(class="menu flex-shrink-0 w-48 p-4 bg-gray-700 ")
             a(href="/admin/dashboard" class="block py-2 text-white") Dashboard
             a(href="/admin/products" class="block py-2 text-white") Product
         div(class="list-product flex-grow p-4 relative")
@@ -38,6 +38,9 @@ block main
                     label(for="position" class="mb-2 block font-semibold") Position
                     input(type="number" name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded") 
                     
+                    label(for="tags" class="mb-2 block font-semibold") Tags
+                    input(type="text" name="tags" id="tags" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
 
                 div
                     div(upload-image)
@@ -46,12 +49,10 @@ block main
                         img( upload-image-preview class="object-cover mb-4 hidden" style="width: 60px; height: 60px;")
                         
                     label(for="description" class="mb-2 block font-semibold") Description
-                    textarea(name="description" id="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                    textarea(name="description" id="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded tinymce-editor")
 
                     
-                    label(for="tags" class="mb-2 block font-semibold") Tags
-                    input(type="text" name="tags" id="tags" class="w-full p-2 mb-4 border border-gray-300 rounded") 
-
+                    
                     label(for="brand" class="mb-2 block font-semibold") Brand
                     input(type="text" name="brand" id="brand" value="Essence" class="w-full p-2 mb-4 border border-gray-300 rounded") 
 

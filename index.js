@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 var methodOverride = require("method-override");
+var path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -38,6 +39,8 @@ app.set("view engine", "pug");
 
 // use folder public
 app.use(express.static(`${__dirname}/public`));
+// tinymce
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 // embed const route
 routeClient(app);
