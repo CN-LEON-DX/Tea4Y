@@ -5,6 +5,7 @@ block main
         div(class="menu flex-shrink-0 w-48 p-4 bg-gray-700 h-screen")
             a(href="/admin/dashboard" class="block py-2 text-white") Dashboard
             a(href="/admin/products" class="block py-2 text-white") Product
+            a(href="/admin/category" class="block py-2 text-white") Category
         div(class="list-product flex-grow p-4 relative")
             h2(class="title text-2xl font-bold mb-4") Product: #{product.title}
 
@@ -39,8 +40,7 @@ block main
                         label(class="mb-2 block font-semibold") Image
                         img(src=product.thumbnail upload-image-preview class="object-cover mb-4 rounded-md" style="width: 60px; height: 60px;")
 
-                    label(class="mb-2 block font-semibold") Description
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.description}
+                    label(class="mb-4 block font-semibold") Description: !{product.description}
 
                     label(class="mb-2 block font-semibold") Tags
                     p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.tags ? product.tags : "Empty"}
