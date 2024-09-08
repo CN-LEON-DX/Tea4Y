@@ -1,46 +1,32 @@
 const Product = require("../../models/product.model");
 const filterProductHelper = require("../../helpers/filterProduct.helper");
+const paginationHelper = require("../../helpers/pagination.helper");
+const sortOptionHelper = require("../../helpers/sortProduct.helper");
 const systemConfig = require("../../config/system");
 const mongoose = require("mongoose");
 
 module.exports.index = async (req, res) => {
+  const { priceRange, status, search, sortSelection, page } = req.query;
+
   let query = filterProductHelper(req);
-  const { priceRange, status, search } = req.query;
 
-  const pagination = {
-    limitItems: 5,
-    currentPage: parseInt(req.query.page) || 1,
-  };
+  const pagination = paginationHelper.getPagination(page, await Product.countDocuments(query));
 
-  const totalProducts = await Product.countDocuments(query);
-
-  const totalPages = Math.ceil(totalProducts / pagination.limitItems);
-
-  if (pagination.currentPage > totalPages) {
-    pagination.currentPage = totalPages;
-  } else if (pagination.currentPage < 1) {
-    pagination.currentPage = 1;
-  }
+  const sortOption = sortOptionHelper.getSortOption(sortSelection);
 
   let skipPage = (pagination.currentPage - 1) * pagination.limitItems;
-
-  const products = await Product.find(query)
-    .limit(pagination.limitItems)
-    .skip(skipPage > 0 ? skipPage : 0);
-
-  pagination.pages = Array.from(
-    { length: totalPages },
-    (_, index) => index + 1
-  );
-  pagination.totalPages = totalPages;
+  const products =  await Product.find(query)
+      .limit(pagination.limitItems)
+      .skip(skipPage > 0 ? skipPage : 0)
+      .sort(sortOption);
 
   res.render("admin/pages/products/index", {
     pageTitle: "List product",
-    products: products,
+    products,
     priceRange,
     status,
     search,
-    pagination: pagination,
+    pagination,
     prefixAdmin: systemConfig.prefixAdmin,
   });
 };

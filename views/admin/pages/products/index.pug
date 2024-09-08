@@ -12,7 +12,7 @@ block main
         div(class="list-product flex-grow p-4 relative")
             h2(class="title text-2xl font-bold mb-4") List product 
 
-            +filterProduct('/admin/products', priceRange, status, search)
+            +filterProduct('/admin/products', priceRange, status, search, sortValue)
             div(class="flex")
                 button(type="button" id="multiSelectToggle" class="mb-4 bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-teal-900") Multi-edit
                 div(class="ml-4 hidden select-column")

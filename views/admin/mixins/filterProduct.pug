@@ -1,4 +1,4 @@
-mixin filterProduct(path, priceRange, status, search)
+mixin filterProduct(path, priceRange, status, search, sortValue)
     //- Search Filter Form
     form(method="GET" action= path class="mb-4 flex space-x-4 items-end")
         div
@@ -19,5 +19,15 @@ mixin filterProduct(path, priceRange, status, search)
         div
             label(for="search" class="block text-gray-700") Search by Name
             input(type="text" name="search" id="search" value=`${search || ''}` placeholder="Enter product name" class="border border-gray-300 rounded p-2")
+        // Sort Options
+        div
+            label(for="sortSelection" class="block text-gray-700") Sort by
+            select(name="sortSelection" id="sort" class="border border-gray-300 rounded p-2")
+                option(value="price-asc" selected=(sortValue == "price-asc")) Price: Low to High
+                option(value="price-desc" selected=(sortValue == "price-desc")) Price: High to Low
+                option(value="title-asc" selected=(sortValue == "title-asc")) Title: A-Z
+                option(value="title-desc" selected=(sortValue == "title-desc")) Title: Z-A
+                option(value="position-asc" selected=(sortValue == "position-asc")) Position: Low to High
+                option(value="position-desc" selected=(sortValue == "position-desc")) Position: High to Low
         div
             button(type="submit" class="bg-slate-800 text-white rounded p-2 hover:bg-teal-900 ") Apply Filters
