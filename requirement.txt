@@ -1,0 +1,14 @@
+// requirement.txt:
+  // "@tailwindcss/line-clamp": "^0.4.4", // tailwindcss plugin
+  //   "body-parser": "^1.20.2", // parse incoming request bodies in a middleware
+  //   "dotenv": "^16.4.5", // environment variable
+  //   "express": "^4.19.2", // web framework for node.js
+  //   "express-flash": "^0.0.2", // flash message for express use along with cookie-parser library
+            "cookie-parser": "^1.4.6",
+            "express-session": "^1.18.0",
+  //   "method-override": "^3.0.0", //  get and post method with put and delete
+  //   "mongoose": "^8.6.0", // mongodb object modeling tool
+  //   "pug": "^3.0.3" // template engine
+        
+  //   "mongoose-slug-updater": "^3.3.0", // auto add slug
+  "multer": "^1.4.5-lts.1",

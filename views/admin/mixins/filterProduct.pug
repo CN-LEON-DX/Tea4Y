@@ -1,0 +1,23 @@
+mixin filterProduct(path, priceRange, status, search)
+    //- Search Filter Form
+    form(method="GET" action= path class="mb-4 flex space-x-4 items-end")
+        div
+            label(for="priceRange" class="block text-gray-700") Price Range
+            select(name="priceRange" id="priceRange" class="border border-gray-300 rounded p-2")
+                option(value="") -- Select price range --
+                option(value="0-50" selected=(priceRange === '0-50')) $0 - $50
+                option(value="50-100" selected=(priceRange === '50-100')) $50 - $100
+                option(value="100-200" selected=(priceRange === '100-200')) $100 - $200
+                option(value="200-500" selected=(priceRange === '200-500')) $200 - $500
+                option(value="500" selected=(priceRange === '500')) $500+
+        div
+            label(for="status" class="block text-gray-700") Status
+            select(name="status" id="status" class="border border-gray-300 rounded p-2")
+                option(value="") -- Select status --
+                option(value="active" selected=(status === 'active')) Active
+                option(value="inactive" selected=(status === 'inactive')) Inactive
+        div
+            label(for="search" class="block text-gray-700") Search by Name
+            input(type="text" name="search" id="search" value=`${search || ''}` placeholder="Enter product name" class="border border-gray-300 rounded p-2")
+        div
+            button(type="submit" class="bg-slate-800 text-white rounded p-2 hover:bg-teal-900 ") Apply Filters

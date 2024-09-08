@@ -1,0 +1,21 @@
+//- Requires pagination object
+//- limitItems, currentPage, totalPages, pages
+
+mixin pagination(pagination)
+    div(class="flex justify-center mt-auto bottom-[40px] absolute w-full")
+        nav(aria-label="Pagination")
+            ul(class="inline-flex items-center space-x-1")
+                li
+                    a(href="?page=1" class="px-3 py-2 text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-100") First
+
+                if pagination.currentPage > 1
+                    li
+                        a(href=`?page=${pagination.currentPage > 1 ? pagination.currentPage - 1 : 1}` class="px-3 py-2 text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-100") Previous
+                each page in pagination.pages
+                    li
+                        a(href=`?page=${page}` class=`px-3 py-2 ${page === pagination.currentPage ? 'text-white bg-blue-500 border-blue-500' : 'text-gray-500 bg-white border border-gray-300'} rounded-md hover:bg-gray-100`)= page
+                if pagination.currentPage < pagination.totalPages
+                    li
+                        a(href=`?page=${pagination.currentPage < pagination.totalPages ? pagination.currentPage + 1 : pagination.totalPages}` class="px-3 py-2 text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-100") Next
+                li
+                    a(href=`?page=${pagination.totalPages}` class="px-3 py-2 text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-100") Last

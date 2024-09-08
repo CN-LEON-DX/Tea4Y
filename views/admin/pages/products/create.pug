@@ -1,0 +1,73 @@
+extend ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main
+    +alert-error()
+    div(class="flex")
+        div(class="menu flex-shrink-0 w-48 p-4 bg-gray-700 h-screen")
+            a(href="/admin/dashboard" class="block py-2 text-white") Dashboard
+            a(href="/admin/products" class="block py-2 text-white") Product
+        div(class="list-product flex-grow p-4 relative")
+            h2(class="title text-2xl font-bold mb-4") Create product
+
+            form(class="grid grid-cols-[1fr,2fr] gap-8" method="POST" action=`${prefixAdmin}/products/create` enctype="multipart/form-data")
+                // Left column - General Information
+                div
+                    label(for="name" class="mb-2 block font-semibold") Name
+                    input(type="text" name="name" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required)  
+
+                    label(for="price" class="mb-2 block font-semibold") Price
+                    input(type="number" value="0" min="0" name="price" id="price" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
+                    label(for="status" class="mb-2 block font-semibold") Status
+                    select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                        option(value="active") Active
+                        option(value="inactive") Inactive
+                    label(for="category" class="mb-2 block font-semibold") Category
+                    input(type="text" name="category" id="category" value="beauty" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
+                    label(for="stock" class="mb-2 block font-semibold") Stock
+                    input(type="number" name="stock" id="stock" value="5" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                    
+                    label(for="rating" class="mb-2 block font-semibold") Rating
+                    input(type="number" name="rating" id="rating" value="4.94" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+                    
+                    
+                    label(for="discountPercentage" class="mb-2 block font-semibold") Discount Percentage
+                    input(type="number" value="0" min="0" name="discountPercentage" id="discountPercentage" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
+                    label(for="position" class="mb-2 block font-semibold") Position
+                    input(type="number" name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+                    
+
+                div
+                    div(upload-image)
+                        label(for="thumbnail" class="mb-2 block font-semibold") Image
+                        input(upload-image-input type="file" accept="image/*" name="thumbnail" id="thumbnail" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                        img( upload-image-preview class="object-cover mb-4 hidden" style="width: 60px; height: 60px;")
+                        
+                    label(for="description" class="mb-2 block font-semibold") Description
+                    textarea(name="description" id="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded")
+
+                    
+                    label(for="tags" class="mb-2 block font-semibold") Tags
+                    input(type="text" name="tags" id="tags" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
+                    label(for="brand" class="mb-2 block font-semibold") Brand
+                    input(type="text" name="brand" id="brand" value="Essence" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
+                    
+                    label(for="warrantyInformation" class="mb-2 block font-semibold") Warranty Information
+                    input(type="text" name="warrantyInformation" id="warrantyInformation" value="1 month warranty" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
+            
+                    
+                    label(for="returnPolicy" class="mb-2 block font-semibold") Return Policy
+                    input(type="text" name="returnPolicy" id="returnPolicy" value="30 days return policy" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
+                    
+                // Submit button at the bottom spanning both columns
+                div(class="col-span-2 absolute right-[20px] top-[20px]")
+                    button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Create Product
+
+    script(src="/admin/js/create-product.js") 
+    

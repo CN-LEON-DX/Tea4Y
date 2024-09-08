@@ -1,0 +1,56 @@
+extend ../../layouts/default.pug
+
+block main
+    div(class="container mx-auto p-4")
+        h2.text-2xl.font-semibold.mb-8.mt-4 Product Details
+        
+        div(class="grid grid-cols-[2fr,5fr] gap-8")
+            //- Left side: Image and main product info
+            div
+                img(src=product.thumbnail alt=product.title class="w-[300px] h-auto object-cover rounded-md mb-4")
+                
+                //- Primary info
+                
+
+            //- Right side: Additional product details
+            div
+                h2.text-3xl.font-semibold.mb-2.text-ellipsis #{product.title}
+                p.text-gray-600.mb-2.text-ellipsis.line-clamp-3 #{product.description}
+                p.text-lg.font-bold.mb-2 Price: #{product.newPrice}$
+                if product.discountPercentage
+                    p.text-sm.text-gray-500.line-through #{product.price}$
+                    span(class="p-2 bg-red-500 text-white rounded-full mt-2 inline-block text-center") #{product.discountPercentage}% Off
+                else
+                    p.text-sm.text-gray-500 #{product.price}$
+        div()
+
+            label(class="mb-2 block font-semibold") Category
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.category}
+
+            label(class="mb-2 block font-semibold") Stock
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.stock}
+
+            label(class="mb-2 block font-semibold") Rating
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.rating}
+
+            label(class="mb-2 block font-semibold") Status
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.status}
+
+            label(class="mb-2 block font-semibold") Warranty
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.warrantyInformation}
+
+            label(class="mb-2 block font-semibold") Return Policy
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.returnPolicy}
+
+            label(class="mb-2 block font-semibold") Tags
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.tags}
+
+        //- Reviews and Ratings section
+        //- div.mt-8
+        //-     h3.text-xl.font-semibold.mb-4 Reviews and Ratings
+        //-     //- You can display reviews, ratings, and any other additional info here
+        //-     each review in reviews
+        //-         div(class="p-4 mb-4 border border-gray-300 rounded bg-gray-50")
+        //-             p.font-semibold #{review.username}
+        //-             p #{review.comment}
+        //-             p.text-sm.text-gray-500 Rating: #{review.rating}/5
