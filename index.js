@@ -24,7 +24,7 @@ database.connectDB();
 const routeClient = require("./routers/client/index.route");
 const routeAdmin = require("./routers/admin/index.route");
 
-const port = process.env.PORT;
+const port = "tea4you.vercel.app";
 
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
