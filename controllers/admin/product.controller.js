@@ -4,10 +4,9 @@ const systemConfig = require("../../config/system");
 const mongoose = require("mongoose");
 
 module.exports.index = async (req, res) => {
-  console.log(Product.find({}));
   let query = filterProductHelper(req);
   const { priceRange, status, search } = req.query;
-  
+
   const pagination = {
     limitItems: 5,
     currentPage: parseInt(req.query.page) || 1,
@@ -147,8 +146,8 @@ module.exports.createProduct = async (req, res) => {
   req.body.discountPercentage = req.body.discountPercentage
     ? parseFloat(req.body.discountPercentage)
     : 0;
-  req.body.thumbnail = `/admin/uploads/${req.file.filename}`; // FiLE NAME HaS BEEN CHaNGeD
-  // console.log(req.body);
+
+  console.log(req.body.thumbnail);
   try {
     const product = new Product(req.body);
     await product.save();

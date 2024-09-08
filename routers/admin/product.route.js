@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
+// uploadcloud
+const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
+// end uploadcloud
+
+const streamifier = require("streamifier");
 const multer = require("multer");
-const stoprage = require("../../helpers/storage-multer.helper");
-const upload = multer({ storage: stoprage() });
+const upload = multer();
 
 const controller = require("../../controllers/admin/product.controller");
 
@@ -21,6 +25,7 @@ router.get("/create", controller.create);
 router.post(
   "/create",
   upload.single("thumbnail"),
+  uploadCloud.upload,
   validate.createProduct, // validate before create
   controller.createProduct
 );
