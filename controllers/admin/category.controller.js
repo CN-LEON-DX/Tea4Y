@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
       deleted: false,
     });
 
-    const newCategories = createTreeHelper.createTreeRef(categories);
+    const newCategories = createTreeHelper.tree(categories);
     console.log(newCategories);
     res.render("admin/pages/category/index", {
       pageTitle: "Category",
@@ -29,7 +29,7 @@ module.exports.create = async (req, res) => {
   try {
     const categories = await Category.find({ deleted: false });
 
-    const newCategories = createTreeHelper.createTreeRef(categories);
+    const newCategories = createTreeHelper.tree(categories);
 
     res.render("admin/pages/category/create", {
       pageTitle: "Add category",

@@ -9,7 +9,7 @@ mixin tabel-category(categories, level = 1)
         tr(class="border-b")
             td(class="p-2 hidden select-column")
                 input(type="checkbox" name="productIds" value=`${category.id}` class="select-checkbox")
-            td(class="p-2")= index + 1
+            td(class="p-2")= category.index 
             td(class="p-2")
                 img(src=`${category.thumbnail}` alt=`${category.title}` class="w-20 aspect-video object-cover")
             td(class="p-2")= category.title
