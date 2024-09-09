@@ -21,7 +21,7 @@ block main
                     p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.status === "active" ? "Active" : "Inactive"}
 
                     label(class="mb-2 block font-semibold") Category
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.category ? product.category : "Empty"}
+                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100")= category.title ? category.title : "Empty"
 
                     label(class="mb-2 block font-semibold") Stock
                     p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.stock}

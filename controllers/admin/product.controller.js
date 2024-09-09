@@ -3,6 +3,10 @@ const filterProductHelper = require("../../helpers/filterProduct.helper");
 const paginationHelper = require("../../helpers/pagination.helper");
 const sortOptionHelper = require("../../helpers/sortProduct.helper");
 const systemConfig = require("../../config/system");
+
+const Category = require("../../models/category.model");
+const createTreeHelper = require("../../helpers/createTree.helper");
+
 const mongoose = require("mongoose");
 
 module.exports.index = async (req, res) => {
@@ -10,15 +14,18 @@ module.exports.index = async (req, res) => {
 
   let query = filterProductHelper(req);
 
-  const pagination = paginationHelper.getPagination(page, await Product.countDocuments(query));
+  const pagination = paginationHelper.getPagination(
+    page,
+    await Product.countDocuments(query)
+  );
 
   const sortOption = sortOptionHelper.getSortOption(sortSelection);
 
   let skipPage = (pagination.currentPage - 1) * pagination.limitItems;
-  const products =  await Product.find(query)
-      .limit(pagination.limitItems)
-      .skip(skipPage > 0 ? skipPage : 0)
-      .sort(sortOption);
+  const products = await Product.find(query)
+    .limit(pagination.limitItems)
+    .skip(skipPage > 0 ? skipPage : 0)
+    .sort(sortOption);
 
   res.render("admin/pages/products/index", {
     pageTitle: "List product",
@@ -112,8 +119,13 @@ module.exports.changePosition = async (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
+  const categories = await Category.find({ deleted: false });
+
+  const newCategories = createTreeHelper.tree(categories);
+
   res.render("admin/pages/products/create", {
     pageTitle: "Create product",
+    newCategories,
     prefixAdmin: systemConfig.prefixAdmin,
   });
 };
@@ -134,6 +146,7 @@ module.exports.createProduct = async (req, res) => {
     : 0;
 
   console.log(req.body.thumbnail);
+
   try {
     const product = new Product(req.body);
     await product.save();
@@ -146,7 +159,7 @@ module.exports.createProduct = async (req, res) => {
   }
 };
 
-module.exports.fastEditProduct = async (req, res) => {
+module.exports.editProduct = async (req, res) => {
   console.log(req.params.id);
   // find product by id
   try {
@@ -158,9 +171,15 @@ module.exports.fastEditProduct = async (req, res) => {
     if (!product) {
       res.status(404).send("Product not found");
     }
+
+    const categories = await Category.find({ deleted: false });
+
+    const newCategories = createTreeHelper.tree(categories);
+
     res.render("admin/pages/products/edit", {
       pageTitle: "Edit product",
       product: product,
+      newCategories,
       prefixAdmin: systemConfig.prefixAdmin,
     });
   } catch (error) {
@@ -197,9 +216,14 @@ module.exports.updateProduct = async (req, res) => {
 module.exports.detailProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
+    const category = await Category.findOne({
+      _id: product.product_category_id,
+      deleted: false,
+    });
     res.render("admin/pages/products/detail", {
       pageTitle: "Detail product",
       product: product,
+      category: category,
       prefixAdmin: systemConfig.prefixAdmin,
     });
   } catch (error) {

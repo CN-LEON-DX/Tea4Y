@@ -29,7 +29,7 @@ router.post(
   validate.createProduct, // validate before create
   controller.createProduct
 );
-router.get("/edit/:id", controller.fastEditProduct);
+router.get("/edit/:id", controller.editProduct);
 router.patch(
   "/edit/:id",
   upload.single("thumbnail"),

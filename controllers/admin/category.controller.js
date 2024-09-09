@@ -11,7 +11,6 @@ module.exports.index = async (req, res) => {
     });
 
     const newCategories = createTreeHelper.tree(categories);
-    console.log(newCategories);
     res.render("admin/pages/category/index", {
       pageTitle: "Category",
       newCategories,
@@ -52,7 +51,7 @@ module.exports.createCategory = async (req, res) => {
     : totalCategories + 1;
 
   if (req.body.title) {
-    req.body.slug = slugify(req.body.title, { lower: true });
+    req.body.slug = slugify(req.body.title + totalCategories, { lower: true });
   }
 
   try {
@@ -63,6 +62,52 @@ module.exports.createCategory = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/category`);
   } catch (error) {
     console.error("Error creating category:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+module.exports.edit = async (req, res) => {
+  try {
+    const category = await Category.findOne({
+      _id: req.params.id,
+      deleted: false,
+    });
+
+    const originalCategory = await Category.find({ deleted: false });
+    const newCategories = createTreeHelper.tree(originalCategory);
+
+    res.render("admin/pages/category/edit", {
+      pageTitle: "Edit category",
+      category,
+      newCategories,
+      prefixAdmin: systemConfig.prefixAdmin,
+    });
+  } catch (error) {
+    console.error("Error fetching category:", error);
+    res.status(500).send("Not found.");
+  }
+};
+
+module.exports.update = async (req, res) => {
+  let totalCategories = await Category.countDocuments();
+
+  req.body.title = req.body.name;
+  req.body.status = "active";
+  req.body.position = req.body.position
+    ? parseFloat(req.body.position)
+    : totalCategories + 1;
+
+  if (req.body.title) {
+    req.body.slug = slugify(req.body.title, { lower: true });
+  }
+  console.log(req.body);
+  try {
+    await Category.updateOne({ _id: req.params.id }, req.body);
+
+    req.flash("success", "Category updated successfully");
+    res.redirect(`${systemConfig.prefixAdmin}/category`);
+  } catch (error) {
+    console.error("Error updating category:", error);
     res.status(500).send("Internal Server Error");
   }
 };

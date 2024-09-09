@@ -1,5 +1,6 @@
 extend ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/selectTree.pug
 block main
     +alert-error()
     div(class="flex")
@@ -23,9 +24,11 @@ block main
                     select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded")
                         option(value="active") Active
                         option(value="inactive") Inactive
-                    label(for="category" class="mb-2 block font-semibold") Category
-                    input(type="text" name="category" id="category" value="beauty" class="w-full p-2 mb-4 border border-gray-300 rounded") 
-
+                    label(for="product_category_id" class="mb-2 block font-semibold") Category 
+                    select(name="product_category_id" id="product_category_id" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                        option(value="") None
+                        if(newCategories)
+                            +select-tree(newCategories)
                     label(for="stock" class="mb-2 block font-semibold") Stock
                     input(type="number" name="stock" id="stock" value="5" class="w-full p-2 mb-4 border border-gray-300 rounded")
                     
