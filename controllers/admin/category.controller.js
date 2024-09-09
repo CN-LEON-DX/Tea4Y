@@ -1,6 +1,8 @@
 // [GET] /admin/category
+const slugify = require("slugify");
 const systemConfig = require("../../config/system");
 const Category = require("../../models/category.model");
+const createTreeHelper = require("../../helpers/createTree.helper");
 
 module.exports.index = async (req, res) => {
   try {
@@ -8,9 +10,11 @@ module.exports.index = async (req, res) => {
       deleted: false,
     });
 
+    const newCategories = createTreeHelper.createTreeRef(categories);
+    console.log(newCategories);
     res.render("admin/pages/category/index", {
       pageTitle: "Category",
-      categories,
+      newCategories,
       prefixAdmin: systemConfig.prefixAdmin,
     });
   } catch (error) {
@@ -21,11 +25,21 @@ module.exports.index = async (req, res) => {
 
 //- note model need to be created:
 // {_id, title, description, status, thumbnail, position, createdAt, updatedAt, deleted, deletedAt, slug}
-module.exports.create = (req, res) => {
-  res.render("admin/pages/category/create", {
-    pageTitle: "Add category",
-    prefixAdmin: systemConfig.prefixAdmin,
-  });
+module.exports.create = async (req, res) => {
+  try {
+    const categories = await Category.find({ deleted: false });
+
+    const newCategories = createTreeHelper.createTreeRef(categories);
+
+    res.render("admin/pages/category/create", {
+      pageTitle: "Add category",
+      newCategories,
+      prefixAdmin: systemConfig.prefixAdmin,
+    });
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    res.status(500).send("An error occurred while fetching categories.");
+  }
 };
 
 module.exports.createCategory = async (req, res) => {
@@ -36,6 +50,10 @@ module.exports.createCategory = async (req, res) => {
   req.body.position = req.body.position
     ? parseFloat(req.body.position)
     : totalCategories + 1;
+
+  if (req.body.title) {
+    req.body.slug = slugify(req.body.title, { lower: true });
+  }
 
   try {
     const category = new Category(req.body);

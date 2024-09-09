@@ -1,5 +1,6 @@
 extend ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/selectTree.pug
 block main
     +alert-error()
     +alert-success()
@@ -22,16 +23,15 @@ block main
                     select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded")
                         option(value="active") Active
                         option(value="inactive") Inactive
-                    label(for="category" class="mb-2 block font-semibold") Category
-                    input(type="text" name="category" id="category" value="beauty" class="w-full p-2 mb-4 border border-gray-300 rounded") 
-
+                    label(for="parentID" class="mb-2 block font-semibold") Category parent
+                    select(name="parentID" id="parentID" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                        option(value="") None
+                        if(newCategories)
+                            +select-tree(newCategories)
+                        
                     label(for="position" class="mb-2 block font-semibold") Position
                     input(type="number" name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded") 
                     
-                    label(for="parentID" class="mb-2 block font-semibold") Parent ID
-                    input(type="text" name="parentID"  id="parentID" class="w-full p-2 mb-4 border border-gray-300 rounded") 
-                    
-
 
                 div
                     div(upload-image)
