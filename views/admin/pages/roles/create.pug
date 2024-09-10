@@ -1,0 +1,21 @@
+extends ../../layouts/default.pug
+include ../../partials/sider.pug
+include ../../mixins/alert.pug
+
+block main
+    +alert-error()
+    +alert-success()
+    div(class="flex")
+        +sider()
+        div(class="list-product flex-grow p-4 relative")
+            h2(class="title text-2xl font-bold mb-4") Decentrallization 
+
+            form(class="w-full max-w-lg" method="POST" action=`${prefixAdmin}/roles/create`)
+                label(for="title" class="block text-md font-medium ") Title
+                input(type="text" id="title" name="title" class="mt-1 mb-4 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")
+                
+                label(for="description" class="block text-md font-medium ") Description
+                textarea(id="description" name="description" rows="3" class="mt-1 mb-4 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm") 
+                
+                div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
+                    button(type="submit" class="bg-slate-700 text-white px-4 py-2 rounded") Add new

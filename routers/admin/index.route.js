@@ -1,7 +1,9 @@
 const dashboardRouters = require("./dashboard.route");
 const productRouters = require("./product.route");
 const categoryRouters = require("./category.route");
+const roleRouters = require("./role.route");
 const systemConfig = require("../../config/system");
+
 
 module.exports = (app) => {
   console.log("admin route");
@@ -9,4 +11,5 @@ module.exports = (app) => {
   app.use(PATH_ADMIN + "/dashboard", dashboardRouters);
   app.use(PATH_ADMIN + "/products", productRouters);
   app.use(PATH_ADMIN + "/category", categoryRouters);
+  app.use(PATH_ADMIN + "/roles", roleRouters);
 };
