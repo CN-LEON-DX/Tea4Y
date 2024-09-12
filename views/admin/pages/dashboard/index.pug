@@ -1,4 +1,11 @@
 extends ../../layouts/default.pug
-
-block main 
-    h1 Dashboard 
+include ../../mixins/tableCategory.pug
+include ../../mixins/alert.pug
+include ../../partials/sider.pug
+block main
+    +alert-error()
+    +alert-success()
+    div(class="flex")
+        +sider()
+        div(class="list-product flex-grow p-4 relative")
+            h2(class="title text-2xl font-bold mb-4") Dashboard

@@ -1,0 +1,22 @@
+mixin alert-success()
+    - if (messages.success)
+        #alert-update.fixed.top-4.right-4.w-72.absolute
+            #alert-border-3.flex.items-center.p-4.text-black.border-t-4.border-purple-300.bg-white(
+                class='dark:text-black dark:bg-gray-800 dark:border-purple-700'
+                role='alert')
+                svg.flex-shrink-0.w-4.h-4(aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 20 20')
+                    path(d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z')
+                .ms-3.text-sm.font-medium.ml-2
+                    | #{messages.success}
+                
+mixin alert-error()
+    - if (messages.error)
+        #alert-update.fixed.top-4.right-4.w-72.absolute
+            #alert-border-3.flex.items-center.p-4.text-black.border-t-4.border-pink-300.bg-white(
+                class='dark:text-black dark:bg-gray-800 dark:border-pink-700'
+                role='alert')
+                svg.flex-shrink-0.w-4.h-4(aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewbox='0 0 20 20')
+                    path(d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z')
+                .ms-3.text-sm.font-medium.ml-2
+                    | #{messages.error}
+                
