@@ -20,5 +20,13 @@ router.post(
   validate.createAcc,
   controller.addAccount
 );
+router.get("/edit/:id", controller.editAccount);
+router.patch(
+  "/update/:id",
+  upload.single("avatar"),
+  uploadCloud.upload,
+  validate.updateAcc,
+  controller.updateAccount
+);
 
 module.exports = router;

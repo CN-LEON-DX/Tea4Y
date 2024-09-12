@@ -13,7 +13,7 @@ module.exports.index = async (req, res) => {
     const roles = await Roles.find(find);
     let roleMap = {};
     roles.forEach((role) => {
-        roleMap[role._id] = role.title;
+      roleMap[role._id] = role.title;
     });
 
     res.render("admin/pages/accounts/index", {
@@ -54,6 +54,35 @@ module.exports.addAccount = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/accounts`);
   } catch (error) {
     req.flash("error", "Add account failed:");
+    console.log(error);
+  }
+};
+
+module.exports.editAccount = async (req, res) => {
+  const data = await Accounts.findById(req.params.id);
+  const roles = await Roles.find();
+  res.render("admin/pages/accounts/edit", {
+    pageTitle: "Account",
+    data: data,
+    roles: roles,
+    prefixAdmin: systemConfig.prefixAdmin,
+  });
+};
+
+module.exports.updateAccount = async (req, res) => {
+  try {
+    const data = req.body;
+    if (req.body.password) {
+      data.password = md5(req.body.password);
+    }else {
+        delete req.body.password;
+    }
+
+    await Accounts.updateOne({_id: req.params.id}, data);
+    req.flash("success", "Update account successfully");
+    res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+  } catch (error) {
+    req.flash("error", "Update account failed:");
     console.log(error);
   }
 };

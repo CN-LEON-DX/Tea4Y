@@ -1,4 +1,4 @@
-extend ../../layouts/default.pug
+extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 include ../../mixins/selectTree.pug
 include ../../partials/sider.pug
@@ -11,7 +11,6 @@ block main
             h2(class="title text-2xl font-bold mb-4") Edit infor:
 
             form(class="grid grid-cols-[1fr,2fr] gap-8" method="POST" action=`${prefixAdmin}/category/edit/${category.id}?_method=PATCH` enctype="multipart/form-data")
-                // Left column - General Information
                 div
                     label(for="name" class="mb-2 block font-semibold") Title
                     input(type="text" name="name" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required value=`${category.title}`) 
