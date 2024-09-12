@@ -1,7 +1,7 @@
 // models/product.model.js
 
 const mongoose = require("mongoose");
-const generateToken = require("../helpers/generateToken");
+const generateToken = require("../helpers/generateToken.helper");
 
 const accountSchema = new mongoose.Schema(
   {

@@ -1,0 +1,60 @@
+extend ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/selectTree.pug
+include ../../partials/sider.pug
+block main
+    +alert-error()
+    +alert-success()
+    div(class="flex")
+        +sider()
+        div(class="list-product flex-grow p-4 relative")
+            div(class="list-product flex-grow p-4 relative")
+            h2(class="title text-2xl font-bold mb-4") Create account
+
+            form(class="grid grid-cols-[1fr,2fr] gap-8" method="POST" action=`${prefixAdmin}/accounts/create` enctype="multipart/form-data")
+                // Left column - General Information
+                div
+                    label(for="name" class="mb-2 block font-semibold") Full name
+                    input(type="text" name="fullName" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required)  
+
+                    label(for="password" class="mb-2 block font-semibold") Password
+                    div(class="relative")
+                        input(type="password" name="password"  id="password" placeholder="Password" class="w-full p-2 mb-4 border border-gray-300 rounded" required) 
+                        span(class="absolute  top-2 right-4  pr-3 cursor-pointer")
+                            i(class="fas fa-eye" id="togglePassword")
+
+                    label(for="email" class="mb-2 block font-semibold") Email
+                    input(type="text" name="email" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required)  
+
+                    
+                    label(for="status" class="mb-2 block font-semibold") Status
+                    select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                        option(value="active" ) Active
+                        option(value="inactive") Inactive
+                    
+                    
+                    
+                    label(for="phone" class="mb-2 block font-semibold") Phone number
+                    input(type="text" name="phone" id="phone" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+
+
+                div
+                    div(upload-image)
+                        label(for="avatar" class="mb-2 block font-semibold") Avatar
+                        input(upload-image-input type="file" accept="image/*" name="avatar" id="avatar" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                        img( upload-image-preview class="object-cover mb-4 hidden" style="width: 60px; height: 60px;")
+                        
+                    label(for="roleID" class="mb-2 block font-semibold") Roles
+                    select(name="roleID" id="roleID" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                        each role in roles 
+                            option(value=role._id)= role.title
+
+                    
+                // Submit button at the bottom spanning both columns
+                div(class="col-span-2 absolute right-[20px] top-[20px]")
+                    button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Create
+
+    script(src="/admin/js/create-account.js")
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    
