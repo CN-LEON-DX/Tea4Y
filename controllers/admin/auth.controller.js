@@ -4,6 +4,10 @@ const Accounts = require("../../models/account.model");
 
 // GET /admin/auth/login
 module.exports.login = async (req, res) => {
+  if (req.signedCookies.token) {
+    res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+    return;
+  }
   res.render("admin/pages/auth/login", {
     pageTitle: "Login",
     prefixAdmin: systemConfig.prefixAdmin,
@@ -31,13 +35,11 @@ module.exports.postLogin = async (req, res) => {
       pageTitle: "Dashboard",
       prefixAdmin: systemConfig.prefixAdmin,
     });
-
   } catch (error) {
     req.flash("error", "Login failed:");
     console.log(error);
   }
 };
-
 
 module.exports.logout = async (req, res) => {
   res.clearCookie("token");

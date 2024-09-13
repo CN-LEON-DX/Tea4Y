@@ -1,19 +1,18 @@
-const jwt = require("jsonwebtoken");
-const { accessTokenSecret } = require("../../helpers/jwtToken.helper");
+const configSystem = require("../../config/system");
+const accounts = require("../../models/account.model");
 
-const authMiddleware = (req, res, next) => {
-  const token = req.headers["authorization"];
-  if (!token) {
-    return res.status(403).json({ message: "Access denied, token missing!" });
-  }
-
-  jwt.verify(token, accessTokenSecret, (err, user) => {
-    if (err) {
-      return res.status(403).json({ message: "Invalid or expired token!" });
+module.exports.requireAuth = (req, res, next) => {
+  console.log(req.signedCookies.token);
+  if (!req.signedCookies.token) {
+    res.redirect(`${configSystem.prefixAdmin}/auth/login`);
+    return;
+  }else {
+    const user = accounts.findOne({ token: req.signedCookies.token });
+    if (!user) {
+      res.redirect(`${configSystem.prefixAdmin}/auth/login`);
+      return;
+    }else {
+      next();
     }
-    req.user = user;
-    next();
-  });
+  }
 };
-
-module.exports = authMiddleware;
