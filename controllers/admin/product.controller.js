@@ -73,12 +73,17 @@ module.exports.delete = async (req, res) => {
   const id = req.params.id;
   try {
     if (id) {
-      await Product.updateOne(
-        { _id: id },
-        { deleted: true, deletedAt: new Date() }
-      );
-      res.redirect("back");
+      await Product.findByIdAndUpdate(id, {
+        $set: {
+          deleted: true,
+          deletedBy: {
+            accountID: res.locals.user.id,
+            deletedAt: new Date(),
+          },
+        },
+      });
       req.flash("success", "Product delete successfully");
+      res.redirect("back");
     } else {
       res.status(404).send("Product not found");
     }
@@ -97,7 +102,15 @@ module.exports.deleteMultiple = async (req, res) => {
 
     await Product.updateMany(
       { _id: { $in: formattedIds } },
-      { $set: { deleted: true, deletedAt: new Date() } }
+      {
+        $set: {
+          deleted: true,
+          deletedBy: {
+            accountID: res.locals.user.id,
+            deletedAt: new Date(),
+          },
+        },
+      }
     );
     req.flash("success", "Product updated successfully");
     res.redirect("back");
