@@ -3,27 +3,31 @@ include ../../mixins/tableCategory.pug
 include ../../mixins/alert.pug
 include ../../partials/sider.pug
 block main
-    +alert-error()
-    +alert-success()
-    div(class="flex")
-        +sider()
-        div(class="list-product flex-grow p-4 relative")
-            h2(class="title text-2xl font-bold mb-4") Category list
+    if roles.permissions.includes('category-view')
+        +alert-error()
+        +alert-success()
+        div(class="flex")
+            +sider()
+            div(class="list-product flex-grow p-4 relative")
+                h2(class="title text-2xl font-bold mb-4") Category list
 
-            //- table list category
-            table(class="min-w-full table-auto")
-                thead
-                    tr(class="bg-gray-200 text-left")
-                        th(class="p-2 hidden select-column") Select
-                        th(class="p-2") ID
-                        th(class="p-2") Image
-                        th(class="p-2") Name
-                        th(class="p-2") Category
-                        th(class="p-2 hidden select-column") Position
-                        th(class="p-2") Status
-                        th(class="p-2") Action
-                tbody
-                    +tabel-category(newCategories)
-
-            div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
-                a(href=`${prefixAdmin}/category/create` class="bg-slate-700 text-white px-4 py-2 rounded") Add category
+                //- table list category
+                table(class="min-w-full table-auto")
+                    thead
+                        tr(class="bg-gray-200 text-left")
+                            th(class="p-2 hidden select-column") Select
+                            th(class="p-2") ID
+                            th(class="p-2") Image
+                            th(class="p-2") Name
+                            th(class="p-2") Category
+                            th(class="p-2 hidden select-column") Position
+                            th(class="p-2") Status
+                            th(class="p-2") Action
+                    tbody
+                        +tabel-category(newCategories)
+                if roles.permissions.includes('category-create')
+                    div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
+                        a(href=`${prefixAdmin}/category/create` class="bg-slate-700 text-white px-4 py-2 rounded") Add category
+    else
+        h2(class="text-2xl font-bold text-center") You don't have permission to view this page
+        a(href=`${prefixAdmin}/category` class="block text-center mt-4 text-blue-500") Back to list category

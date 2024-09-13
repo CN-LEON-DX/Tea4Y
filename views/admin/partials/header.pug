@@ -1,4 +1,7 @@
 header.header
-    div(class="admin  bg-gray-800")
+    div(class="admin bg-gray-800 flex items-center p-4")
         a(href="/")
-                img(src="/admin/images/home.jpeg", alt="Logo" class="w-20 h-20 rounded-full ml-8") 
+            img(src="/admin/images/home.jpeg", alt="Logo" class="w-20 h-20 rounded-full ml-8")
+        div(class=" text-white ml-4")
+            p(class="font-bold") #{user.fullName} 
+            p(class="text-sm") #{roles.title} 

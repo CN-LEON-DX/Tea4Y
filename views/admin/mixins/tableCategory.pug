@@ -22,10 +22,7 @@ mixin tabel-category(categories, level = 1)
             else
                 td(class="p-2 text-red-700")= category.status
             td(class="p-2 flex items-center h-full pt-[15px] space-x-2")
-                button(type="button" class="text-yellow-600 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100 edit-btn"
-                    data-id=`${category._id}`
-                    data-title=`${category.title}`
-                    data-status=`${category.status}`) Fast edit
+                
                 a(href=`${prefixAdmin}/category/edit/${category._id}` class="text-purple-600 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Edit
                 a(href=`${prefixAdmin}/category/detail/${category._id}` class="text-lime-700 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Detail
                 button(btn-delete data-id=`${category._id}` class="text-red-700 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Delete

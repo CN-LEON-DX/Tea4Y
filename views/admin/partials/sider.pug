@@ -1,23 +1,28 @@
 mixin sider()
-    div(class="menu flex-shrink-0 w-48 p-4 bg-gray-700 h-screen")
-        a(href="/admin/dashboard" class="block py-2 text-white flex items-center space-x-2")
-            i(class="fas fa-tachometer-alt") 
-            p Dashboard
-        a(href="/admin/products" class="block py-2 text-white flex items-center space-x-2")
-            i(class="fas fa-box") 
-            p Product
-        a(href="/admin/category" class="block py-2 text-white flex items-center space-x-2")
-            i(class="fas fa-tags") 
-            p Category
-        a(href="/admin/roles" class="block py-2 text-white flex items-center space-x-2")
-            i(class="fas fa-users-cog") 
-            p Decentralize
-        a(href="/admin/roles/permission" class="block py-2 text-white flex items-center space-x-2")
-            i(class="fas fa-shield-alt") 
-            p Permission
-        a(href="/admin/accounts/" class="block py-2 text-white flex items-center space-x-2")
-            i(class="fas fa-user-cog") 
-            p Accounts
-        a(href="/admin/auth/logout" class="block py-2 text-white flex items-center space-x-2")
-            i(class="fas fa-sign-out-alt") 
-            p Logout
+  div(class="menu flex-shrink-0 w-48 p-4 bg-gray-700 h-screen")
+    a(href="/admin/dashboard" class="block py-2 text-white flex items-center space-x-2")
+      i(class="fas fa-tachometer-alt") 
+      p Dashboard
+    if roles.permissions && roles.permissions.includes('product-view')
+      a(href="/admin/products" class="block py-2 text-white flex items-center space-x-2")
+        i(class="fas fa-box") 
+        p Product
+    if roles.permissions && roles.permissions.includes('category-view')
+      a(href="/admin/category" class="block py-2 text-white flex items-center space-x-2")
+        i(class="fas fa-tags") 
+        p Category
+    if roles.permissions && roles.permissions.includes('roles-view')
+      a(href="/admin/roles" class="block py-2 text-white flex items-center space-x-2")
+        i(class="fas fa-users-cog") 
+        p Decentralize
+    if roles.permissions && roles.permissions.includes('roles-permission')
+      a(href="/admin/roles/permission" class="block py-2 text-white flex items-center space-x-2")
+        i(class="fas fa-shield-alt") 
+        p Permission
+    if roles.permissions && roles.permissions.includes('account-view')
+      a(href="/admin/accounts/" class="block py-2 text-white flex items-center space-x-2")
+        i(class="fas fa-user-cog") 
+        p Accounts
+    a(href="/admin/auth/logout" class="block py-2 text-white flex items-center space-x-2")
+      i(class="fas fa-sign-out-alt") 
+      p Logout

@@ -99,6 +99,30 @@ block main
                             td(class="p-2")
                                 input(type="checkbox" class="p-2")
                     
+                    //- Accounts
+                    tr
+                        td(class="p-2 text-md font-bold") Accounts
+                    tr(data-name="account-view")
+                        td(class="p-2 text-md") View
+                        each item in records
+                            td(class="p-2")
+                                input(type="checkbox" class="p-2")
+                    tr(data-name="account-create")
+                        td(class="p-2 text-md") Add new
+                        each item in records
+                            td(class="p-2")
+                                input(type="checkbox" class="p-2")
+                    tr(data-name="account-edit")
+                        td(class="p-2 text-md") Edit
+                        each item in records
+                            td(class="p-2")
+                                input(type="checkbox" class="p-2")
+                    tr(data-name="account-delete")
+                        td(class="p-2 text-md") Delete
+                        each item in records
+                            td(class="p-2")
+                                input(type="checkbox" class="p-2")
+                    
                      
                         
                         

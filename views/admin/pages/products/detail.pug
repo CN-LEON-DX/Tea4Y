@@ -2,55 +2,59 @@ extends ../../layouts/default.pug
 include ../../partials/sider.pug
 
 block main
-    div(class="flex")
-        +sider()
-        div(class="list-product flex-grow p-4 relative")
-            h2(class="title text-2xl font-bold mb-4") Product: #{product.title}
+    if roles.permissions.include("product-view")
+        div(class="flex")
+            +sider()
+            div(class="list-product flex-grow p-4 relative")
+                h2(class="title text-2xl font-bold mb-4") Product: #{product.title}
 
-            div(class="grid grid-cols-[1fr,2fr] gap-8")
-                div
-                    label(class="mb-2 block font-semibold") Name
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.title}
+                div(class="grid grid-cols-[1fr,2fr] gap-8")
+                    div
+                        label(class="mb-2 block font-semibold") Name
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.title}
 
-                    label(class="mb-2 block font-semibold") Price
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.price}
+                        label(class="mb-2 block font-semibold") Price
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.price}
 
-                    label(class="mb-2 block font-semibold") Status
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.status === "active" ? "Active" : "Inactive"}
+                        label(class="mb-2 block font-semibold") Status
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.status === "active" ? "Active" : "Inactive"}
 
-                    label(class="mb-2 block font-semibold") Category
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100")= category.title ? category.title : "Empty"
+                        label(class="mb-2 block font-semibold") Category
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100")= category.title ? category.title : "Empty"
 
-                    label(class="mb-2 block font-semibold") Stock
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.stock}
+                        label(class="mb-2 block font-semibold") Stock
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.stock}
 
-                    label(class="mb-2 block font-semibold") Rating
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.rating ? product.rating : 0}
+                        label(class="mb-2 block font-semibold") Rating
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.rating ? product.rating : 0}
 
-                    label(class="mb-2 block font-semibold") Discount Percentage
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.discountPercentage ? product.discountPercentage : 0}
+                        label(class="mb-2 block font-semibold") Discount Percentage
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.discountPercentage ? product.discountPercentage : 0}
 
-                    label(class="mb-2 block font-semibold") Position
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.position}
+                        label(class="mb-2 block font-semibold") Position
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.position}
 
-                div
-                    div(upload-image)
-                        label(class="mb-2 block font-semibold") Image
-                        img(src=product.thumbnail upload-image-preview class="object-cover mb-4 rounded-md" style="width: 60px; height: 60px;")
+                    div
+                        div(upload-image)
+                            label(class="mb-2 block font-semibold") Image
+                            img(src=product.thumbnail upload-image-preview class="object-cover mb-4 rounded-md" style="width: 60px; height: 60px;")
 
-                    label(class="mb-4 block font-semibold") Description: !{product.description}
+                        label(class="mb-4 block font-semibold") Description: !{product.description}
 
-                    label(class="mb-2 block font-semibold") Tags
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.tags ? product.tags : "Empty"}
+                        label(class="mb-2 block font-semibold") Tags
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.tags ? product.tags : "Empty"}
 
-                    label(class="mb-2 block font-semibold") Brand
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.brand ? product.brand : "Empty"}
+                        label(class="mb-2 block font-semibold") Brand
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.brand ? product.brand : "Empty"}
 
-                    label(class="mb-2 block font-semibold") Warranty Information
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.warrantyInformation ? product.warrantyInformation : "Empty"}
+                        label(class="mb-2 block font-semibold") Warranty Information
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.warrantyInformation ? product.warrantyInformation : "Empty"}
 
-                    label(class="mb-2 block font-semibold") Return Policy
-                    p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.returnPolicy ? product.returnPolicy : "Empty"}
+                        label(class="mb-2 block font-semibold") Return Policy
+                        p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.returnPolicy ? product.returnPolicy : "Empty"}
 
-                div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
-                    a(href=`${prefixAdmin}/products/edit/${product.id}` class="bg-slate-700 text-white px-4 py-2 rounded") Edit product
+                    div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
+                        a(href=`${prefixAdmin}/products/edit/${product.id}` class="bg-slate-700 text-white px-4 py-2 rounded") Edit product
+    else
+        h2(class="text-2xl font-bold text-center") You don't have permission to view this page
+        a(href=`${prefixAdmin}/products` class="block text-center mt-4 text-blue-500") Back to list product

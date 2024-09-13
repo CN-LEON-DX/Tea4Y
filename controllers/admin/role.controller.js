@@ -78,7 +78,7 @@ module.exports.changePermission = async (req, res) => {
       await Roles.updateOne({ _id: id }, { permissions: permissions });
     }
     req.flash("success", "Change permission successfully!");
-    res.redirect(`${systemConfig.prefixAdmin}/roles/`);
+    res.redirect(`${systemConfig.prefixAdmin}/roles/permission`);
   } catch (error) {
     console.log(error);
   }

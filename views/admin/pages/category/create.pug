@@ -3,47 +3,50 @@ include ../../mixins/alert.pug
 include ../../mixins/selectTree.pug
 include ../../partials/sider.pug
 block main
-    +alert-error()
-    +alert-success()
-    div(class="flex")
-        +sider()
-        div(class="list-product flex-grow p-4 relative")
-            h2(class="title text-2xl font-bold mb-4") Create category
+    if roles.permissions.includes('category-create')
+        +alert-error()
+        +alert-success()
+        div(class="flex")
+            +sider()
+            div(class="list-product flex-grow p-4 relative")
+                h2(class="title text-2xl font-bold mb-4") Create category
 
-            form(class="grid grid-cols-[1fr,2fr] gap-8" method="POST" action=`${prefixAdmin}/category/create` enctype="multipart/form-data")
-                // Left column - General Information
-                div
-                    label(for="name" class="mb-2 block font-semibold") Title
-                    input(type="text" name="name" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required)  
-
-                 
-                    label(for="status" class="mb-2 block font-semibold") Status
-                    select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                        option(value="active") Active
-                        option(value="inactive") Inactive
-                    label(for="parentID" class="mb-2 block font-semibold") Category 
-                    select(name="parentID" id="parentID" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                        option(value="") None
-                        if(newCategories)
-                            +select-tree(newCategories)
-                        
-                    label(for="position" class="mb-2 block font-semibold") Position
-                    input(type="number" name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded") 
-                    
-
-                div
-                    div(upload-image)
-                        label(for="thumbnail" class="mb-2 block font-semibold") Image
-                        input(upload-image-input type="file" accept="image/*" name="thumbnail" id="thumbnail" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                        img( upload-image-preview class="object-cover mb-4 hidden" style="width: 60px; height: 60px;")
-                        
-                    label(for="description" class="mb-2 block font-semibold") Description
-                    textarea(name="description" id="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded tinymce-editor")
+                form(class="grid grid-cols-[1fr,2fr] gap-8" method="POST" action=`${prefixAdmin}/category/create` enctype="multipart/form-data")
+                    // Left column - General Information
+                    div
+                        label(for="name" class="mb-2 block font-semibold") Title
+                        input(type="text" name="name" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required)  
 
                     
-                // Submit button at the bottom spanning both columns
-                div(class="col-span-2 absolute right-[20px] top-[20px]")
-                    button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Create Product
+                        label(for="status" class="mb-2 block font-semibold") Status
+                        select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            option(value="active") Active
+                            option(value="inactive") Inactive
+                        label(for="parentID" class="mb-2 block font-semibold") Category 
+                        select(name="parentID" id="parentID" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            option(value="") None
+                            if(newCategories)
+                                +select-tree(newCategories)
+                            
+                        label(for="position" class="mb-2 block font-semibold") Position
+                        input(type="number" name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+                        
 
-    script(src="/admin/js/create-category.js") 
+                    div
+                        div(upload-image)
+                            label(for="thumbnail" class="mb-2 block font-semibold") Image
+                            input(upload-image-input type="file" accept="image/*" name="thumbnail" id="thumbnail" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            img( upload-image-preview class="object-cover mb-4 hidden" style="width: 60px; height: 60px;")
+                            
+                        label(for="description" class="mb-2 block font-semibold") Description
+                        textarea(name="description" id="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded tinymce-editor")
+
+                        
+                    div(class="col-span-2 absolute right-[20px] top-[20px]")
+                        button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Create Product
+
+        script(src="/admin/js/create-category.js") 
+    else
+        h2(class="text-2xl font-bold text-center") You don't have permission to view this page
+        a(href=`${prefixAdmin}/category` class="block text-center mt-4 text-blue-500") Back to list category
     

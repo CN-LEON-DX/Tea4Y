@@ -1,6 +1,7 @@
 const systemConfig = require("../../config/system");
 const md5 = require("md5");
 const Accounts = require("../../models/account.model");
+const Roles = require("../../models/role.model");
 
 // GET /admin/auth/login
 module.exports.login = async (req, res) => {
@@ -28,9 +29,9 @@ module.exports.postLogin = async (req, res) => {
       res.redirect("back");
       return;
     }
-    res.cookie("token", user.token, {
-      signed: true,
-    });
+
+
+
     res.render("admin/pages/dashboard/index", {
       pageTitle: "Dashboard",
       prefixAdmin: systemConfig.prefixAdmin,

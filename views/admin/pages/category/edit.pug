@@ -3,51 +3,51 @@ include ../../mixins/alert.pug
 include ../../mixins/selectTree.pug
 include ../../partials/sider.pug
 block main
-    +alert-error()
-    +alert-success()
-    div(class="flex")
-        +sider()
-        div(class="list-product flex-grow p-4 relative")
-            h2(class="title text-2xl font-bold mb-4") Edit infor:
+    if roles.permissions.includes('category-edit')
+        +alert-error()
+        +alert-success()
+        div(class="flex")
+            +sider()
+            div(class="list-product flex-grow p-4 relative")
+                h2(class="title text-2xl font-bold mb-4") Edit infor:
 
-            form(class="grid grid-cols-[1fr,2fr] gap-8" method="POST" action=`${prefixAdmin}/category/edit/${category.id}?_method=PATCH` enctype="multipart/form-data")
-                div
-                    label(for="name" class="mb-2 block font-semibold") Title
-                    input(type="text" name="name" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required value=`${category.title}`) 
-
-                 
-                    label(for="status" class="mb-2 block font-semibold") Status
-                    select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                        if (category.status === 'active')
-                            option(value="active" selected) Active
-                            option(value="inactive") Inactive
-                        else
-                            option(value="active") Active
-                            option(value="inactive" selected) Inactive
-                    label(for="parentID" class="mb-2 block font-semibold") Category parent
-                    select(name="parentID" id="parentID" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                        //- option(value=`${parentCategory.id}`)= parentCategory.title
-                        if(newCategories)
-                            +select-tree(newCategories, 1, category.parentID)
-                        option(value='') None
-                        
-                        
-                    label(for="position" class="mb-2 block font-semibold") Position
-                    input(type="number" value=category.position name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded") 
-                    
-                div
-                    div(upload-image)
-                        label(for="thumbnail" class="mb-2 block font-semibold") Image
-                        input(upload-image-input type="file" accept="image/*" name="thumbnail" id="thumbnail" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                        img(src=category.thumbnail upload-image-preview class="object-cover mb-4 " style="width: 60px; height: 60px;")
-                        
-                    label(for="description" class="mb-2 block font-semibold") Description
-                    textarea(name="description" id="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded tinymce-editor") !{category.description}
+                form(class="grid grid-cols-[1fr,2fr] gap-8" method="POST" action=`${prefixAdmin}/category/edit/${category.id}?_method=PATCH` enctype="multipart/form-data")
+                    div
+                        label(for="name" class="mb-2 block font-semibold") Title
+                        input(type="text" name="name" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required value=`${category.title}`) 
 
                     
-                // Submit button at the bottom spanning both columns
-                div(class="col-span-2 absolute right-[20px] top-[20px]")
-                    button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Update product
+                        label(for="status" class="mb-2 block font-semibold") Status
+                        select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            if (category.status === 'active')
+                                option(value="active" selected) Active
+                                option(value="inactive") Inactive
+                            else
+                                option(value="active") Active
+                                option(value="inactive" selected) Inactive
+                        label(for="parentID" class="mb-2 block font-semibold") Category parent
+                        select(name="parentID" id="parentID" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            //- option(value=`${parentCategory.id}`)= parentCategory.title
+                            if(newCategories)
+                                +select-tree(newCategories, 1, category.parentID)
+                            option(value='') None
+                            
+                            
+                        label(for="position" class="mb-2 block font-semibold") Position
+                        input(type="number" value=category.position name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+                        
+                    div
+                        div(upload-image)
+                            label(for="thumbnail" class="mb-2 block font-semibold") Image
+                            input(upload-image-input type="file" accept="image/*" name="thumbnail" id="thumbnail" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            img(src=category.thumbnail upload-image-preview class="object-cover mb-4 " style="width: 60px; height: 60px;")
+                            
+                        label(for="description" class="mb-2 block font-semibold") Description
+                        textarea(name="description" id="description" rows="4" class="w-full p-2 mb-4 border border-gray-300 rounded tinymce-editor") !{category.description}
 
+                        
+                    
+                    div(class="col-span-2 absolute right-[20px] top-[20px]")
+                        button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Update product
     script(src="/admin/js/create-category.js") 
     

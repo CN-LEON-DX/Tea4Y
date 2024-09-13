@@ -5,83 +5,91 @@ include ../../mixins/alert.pug
 include ../../partials/sider.pug
 
 block main
-    +alert-success()
-    div(class="flex")
-        +sider()
-        div(class="list-product flex-grow p-4 relative")
-            h2(class="title text-2xl font-bold mb-4") List product 
+    if roles.permissions && roles.permissions.includes('product-view')
+        +alert-success()
+        div(class="flex")
+            +sider()
+            div(class="list-product flex-grow p-4 relative")
+                h2(class="title text-2xl font-bold mb-4") List product 
 
-            +filterProduct('/admin/products', priceRange, status, search, sortValue)
-            div(class="flex")
-                button(type="button" id="multiSelectToggle" class="mb-4 bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-teal-900") Multi-edit
-                div(class="ml-4 hidden select-column")
-                    button(class="bg-red-500 text-white py-2 px-4 rounded-md" id="btn-delete-mul") Del-product selected
-                div(class="ml-4 hidden select-column")
-                    button(class="bg-slate-700 text-white py-2 px-4 rounded-md" id="btn-change-position") Change position
-                button(class="ml-4 mb-4 bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-teal-900")
-                    a(href="/admin/products/create" ) Add product
-            table(class="min-w-full table-auto")
-                thead
-                    tr(class="bg-gray-200 text-left")
-                        th(class="p-2 hidden select-column") Select
-                        th(class="p-2") ID
-                        th(class="p-2") Image
-                        th(class="p-2") Name
-                        th(class="p-2 hidden select-column") Position
-                        th(class="p-2") Price
-                        th(class="p-2") Status
-                        th(class="p-2") Action
-                tbody
-                    each product, index in products
-                        tr(class="border-b")
-                            td(class="p-2 hidden select-column")
-                                input(type="checkbox" name="productIds" value=`${product.id}` class="select-checkbox")
-                            td(class="p-2")= index + 1
-                            td(class="p-2")
-                                img(src=`${product.thumbnail}` alt=`${product.name}` class="w-20 aspect-video object-cover")
-                            td(class="p-2")= product.title
-                            td(class="p-2 hidden select-column")
-                                input(type="number" name="positions" value=`${product.position}` class="w-16 border border-gray-300 p-1 rounded-md position-input")
-                            td(class="p-2") #{product.price}$
-                            if product.status === 'active'
-                                td(class="p-2 text-green-700")= product.status
-                            else
-                                td(class="p-2 text-red-700")= product.status
-                            td(class="p-2 flex items-center h-full pt-[15px] space-x-2")
-                                button(type="button" class="text-yellow-600 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100 edit-btn"
-                                    data-id=`${product.id}`
-                                    data-title=`${product.title}`
-                                    data-price=`${product.price}`
-                                    data-status=`${product.status}`) Fast edit
-                                a(href=`${prefixAdmin}/products/edit/${product.id}` class="text-purple-600 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Edit
-                                a(href=`${prefixAdmin}/products/detail/${product.id}` class="text-lime-700 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Detail
-                                button(btn-delete data-id=`${product.id}` class="text-red-700 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Delete
-            
-            
-            // Modal structure
-            div#editModal(class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden")
-                div(class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg relative")
-                    button(type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 close-modal-btn") &times;
-                    h2(class="text-xl font-bold mb-4") Edit Product
-                    form#editForm( method="POST" action="" class="space-y-4")
-                        input#productId(type="hidden")
-                        div(class="mb-4")
-                            label(for="title" class="block text-gray-700") Product Name
-                            input#productTitle(type="text" class="w-full border border-gray-300 p-2 rounded-md")
-                        div(class="mb-4")
-                            label(for="price" class="block text-gray-700") Price
-                            input#productPrice(type="text" class="w-full border border-gray-300 p-2 rounded-md")
-                        div(class="mb-4")
-                            label(class="block text-gray-700") Status
-                            select#productStatus(class="w-full border border-gray-300 p-2 rounded-md")
-                                option(value="active") Active
-                                option(value="inactive") Inactive
-                        div(class="flex justify-end space-x-2")
-                            button(type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md close-modal-btn") Cancel
-                            button(type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md" id="saveChangesBtn") Save Changes
+                +filterProduct('/admin/products', priceRange, status, search, sortValue)
+                div(class="flex")
+                    if roles.permissions.includes('product-edit')
+                        button(type="button" id="multiSelectToggle" class="mb-4 bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-teal-900") Multi-edit
+                        div(class="ml-4 hidden select-column")
+                            button(class="bg-red-500 text-white py-2 px-4 rounded-md" id="btn-delete-mul") Del-product selected
+                        div(class="ml-4 hidden select-column")
+                            button(class="bg-slate-700 text-white py-2 px-4 rounded-md" id="btn-change-position") Change position
+                    if roles.permissions.includes('product-create')
+                        button(class="ml-4 mb-4 bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-teal-900")
+                            a(href="/admin/products/create" ) Add product
+                table(class="min-w-full table-auto")
+                    thead
+                        tr(class="bg-gray-200 text-left")
+                            th(class="p-2 hidden select-column") Select
+                            th(class="p-2") ID
+                            th(class="p-2") Image
+                            th(class="p-2") Name
+                            th(class="p-2 hidden select-column") Position
+                            th(class="p-2") Price
+                            th(class="p-2") Status
+                            th(class="p-2") Action
+                    tbody
+                        each product, index in products
+                            tr(class="border-b")
+                                td(class="p-2 hidden select-column")
+                                    input(type="checkbox" name="productIds" value=`${product.id}` class="select-checkbox")
+                                td(class="p-2")= index + 1
+                                td(class="p-2")
+                                    img(src=`${product.thumbnail}` alt=`${product.name}` class="w-20 aspect-video object-cover")
+                                td(class="p-2")= product.title
+                                td(class="p-2 hidden select-column")
+                                    input(type="number" name="positions" value=`${product.position}` class="w-16 border border-gray-300 p-1 rounded-md position-input")
+                                td(class="p-2") #{product.price}$
+                                if product.status === 'active'
+                                    td(class="p-2 text-green-700")= product.status
+                                else
+                                    td(class="p-2 text-red-700")= product.status
+                                td(class="p-2 flex items-center h-full pt-[15px] space-x-2")
+                                    if roles.permissions.includes('product-edit')
+                                        button(type="button" class="text-yellow-600 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100 edit-btn"
+                                            data-id=`${product.id}`
+                                            data-title=`${product.title}`
+                                            data-price=`${product.price}`
+                                            data-status=`${product.status}`) Fast edit
+                                        a(href=`${prefixAdmin}/products/edit/${product.id}` class="text-purple-600 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Edit
+                                    a(href=`${prefixAdmin}/products/detail/${product.id}` class="text-lime-700 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Detail
+                                    if roles.permissions.includes('product-delete')
+                                        button(btn-delete data-id=`${product.id}` class="text-red-700 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100" ) Delete
+                
+                
+                // Modal structure
+                div#editModal(class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden")
+                    div(class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg relative")
+                        button(type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 close-modal-btn") &times;
+                        h2(class="text-xl font-bold mb-4") Edit Product
+                        form#editForm( method="POST" action="" class="space-y-4")
+                            input#productId(type="hidden")
+                            div(class="mb-4")
+                                label(for="title" class="block text-gray-700") Product Name
+                                input#productTitle(type="text" class="w-full border border-gray-300 p-2 rounded-md")
+                            div(class="mb-4")
+                                label(for="price" class="block text-gray-700") Price
+                                input#productPrice(type="text" class="w-full border border-gray-300 p-2 rounded-md")
+                            div(class="mb-4")
+                                label(class="block text-gray-700") Status
+                                select#productStatus(class="w-full border border-gray-300 p-2 rounded-md")
+                                    option(value="active") Active
+                                    option(value="inactive") Inactive
+                            div(class="flex justify-end space-x-2")
+                                button(type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md close-modal-btn") Cancel
+                                button(type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md" id="saveChangesBtn") Save Changes
 
-            +pagination(pagination)
+                +pagination(pagination)
 
-    script(src="/admin/js/admin-product.js") 
+        script(src="/admin/js/admin-product.js")
+    else 
+        h2(class="text-2xl font-bold text-center") You don't have permission to view this page
+        a(href="/admin/dashboard" class="block text-center text-blue-500") Back to dashboard 
 
             
