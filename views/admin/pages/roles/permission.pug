@@ -3,133 +3,137 @@ include ../../partials/sider.pug
 include ../../mixins/alert.pug
 
 block main
-    +alert-error()
-    +alert-success()
-    div(class="hidden" data-records=records)
-    div(class="flex")
-        +sider()
-        div(class="list-product flex-grow p-4 relative")
-            h2(class="title text-2xl font-bold mb-4") Setting permission 
+    if roles.permissions.includes('roles-permission')
+        +alert-error()
+        +alert-success()
+        div(class="hidden" data-records=records)
+        div(class="flex")
+            +sider()
+            div(class="list-product flex-grow p-4 relative")
+                h2(class="title text-2xl font-bold mb-4") Setting permission 
 
-            //- table list category
-            table(class="min-w-full table-auto" table-permission)
-                thead
-                    tr(class="bg-gray-200 text-left")
-                        th(class="p-2") Features
-                        each item in records
-                            th(class="p-2")= item.title
-                tbody
-                    tr(data-name="id" class="hidden")
-                        each item in records
-                            td(class="p-2")
-                                input(type="text" class="p-2" value= item.id)
-                    //- Products
-                    tr
-                        td(class="p-2 text-md font-bold") Products
+                //- table list category
+                table(class="min-w-full table-auto" table-permission)
+                    thead
+                        tr(class="bg-gray-200 text-left")
+                            th(class="p-2") Features
+                            each item in records
+                                th(class="p-2")= item.title
+                    tbody
+                        tr(data-name="id" class="hidden")
+                            each item in records
+                                td(class="p-2")
+                                    input(type="text" class="p-2" value= item.id)
+                        //- Products
+                        tr
+                            td(class="p-2 text-md font-bold") Products
+                            
+                        tr(data-name="product-view")
+                            td(class="p-2 text-md") View
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="product-create")
+                            td(class="p-2 text-md") Add new
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="product-edit")
+                            td(class="p-2 text-md") Edit
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="product-delete")
+                            td(class="p-2 text-md") Delete
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        //- Category
+                        tr
+                            td(class="p-2 text-md font-bold") Category
+                        tr(data-name="category-view")
+                            td(class="p-2 text-md") View
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="category-create")
+                            td(class="p-2 text-md") Add new
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="category-edit")
+                            td(class="p-2 text-md") Edit
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="category-delete")
+                            td(class="p-2 text-md") Delete
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        //- Roles
+                        tr
+                            td(class="p-2 text-md font-bold") Roles
+                        tr(data-name="roles-view")
+                            td(class="p-2 text-md") View
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="roles-create")
+                            td(class="p-2 text-md") Add new
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="roles-edit")
+                            td(class="p-2 text-md") Edit
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="roles-delete")
+                            td(class="p-2 text-md") Delete
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="roles-permission")
+                            td(class="p-2 text-md") Permission
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
                         
-                    tr(data-name="product-view")
-                        td(class="p-2 text-md") View
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="product-create")
-                        td(class="p-2 text-md") Add new
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="product-edit")
-                        td(class="p-2 text-md") Edit
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="product-delete")
-                        td(class="p-2 text-md") Delete
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    //- Category
-                    tr
-                        td(class="p-2 text-md font-bold") Category
-                    tr(data-name="category-view")
-                        td(class="p-2 text-md") View
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="category-create")
-                        td(class="p-2 text-md") Add new
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="category-edit")
-                        td(class="p-2 text-md") Edit
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="category-delete")
-                        td(class="p-2 text-md") Delete
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    //- Roles
-                    tr
-                        td(class="p-2 text-md font-bold") Roles
-                    tr(data-name="roles-view")
-                        td(class="p-2 text-md") View
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="roles-create")
-                        td(class="p-2 text-md") Add new
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="roles-edit")
-                        td(class="p-2 text-md") Edit
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="roles-delete")
-                        td(class="p-2 text-md") Delete
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="roles-permission")
-                        td(class="p-2 text-md") Permission
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    
-                    //- Accounts
-                    tr
-                        td(class="p-2 text-md font-bold") Accounts
-                    tr(data-name="account-view")
-                        td(class="p-2 text-md") View
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="account-create")
-                        td(class="p-2 text-md") Add new
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="account-edit")
-                        td(class="p-2 text-md") Edit
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    tr(data-name="account-delete")
-                        td(class="p-2 text-md") Delete
-                        each item in records
-                            td(class="p-2")
-                                input(type="checkbox" class="p-2")
-                    
-                     
+                        //- Accounts
+                        tr
+                            td(class="p-2 text-md font-bold") Accounts
+                        tr(data-name="account-view")
+                            td(class="p-2 text-md") View
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="account-create")
+                            td(class="p-2 text-md") Add new
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="account-edit")
+                            td(class="p-2 text-md") Edit
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
+                        tr(data-name="account-delete")
+                            td(class="p-2 text-md") Delete
+                            each item in records
+                                td(class="p-2")
+                                    input(type="checkbox" class="p-2")
                         
                         
-            div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
-                button(type="submit" class="bg-slate-700 text-white px-4 py-2 rounded" btn-submit) Update
+                            
+                            
+                div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
+                    button(type="submit" class="bg-slate-700 text-white px-4 py-2 rounded" btn-submit) Update
 
-    form(action=`${prefixAdmin}/roles/permission?_method=PATCH` method="POST" class="hidden" id="form-change-permission")
-        div(class="hidden")
-            input(type="text" id="input-change-persmission" name="permissions" class="p-2")
-    script(src="/admin/js/roles.js") 
+        form(action=`${prefixAdmin}/roles/permission?_method=PATCH` method="POST" class="hidden" id="form-change-permission")
+            div(class="hidden")
+                input(type="text" id="input-change-persmission" name="permissions" class="p-2")
+        script(src="/admin/js/roles.js") 
+    else
+        h2(class="text-2xl font-bold text-center") You don't have permission to view this page
+        a(href=`${prefixAdmin}/roles` class="block text-center mt-4 text-blue-500") Back to list roles

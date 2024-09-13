@@ -49,5 +49,8 @@ block main
                     
                     div(class="col-span-2 absolute right-[20px] top-[20px]")
                         button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Update product
-    script(src="/admin/js/create-category.js") 
+        script(src="/admin/js/create-category.js") 
+    else
+        h2(class="text-2xl font-bold text-center") You don't have permission to view this page
+        a(href=`${prefixAdmin}/category` class="block text-center mt-4 text-blue-500") Back to list category
     

@@ -32,10 +32,10 @@ module.exports.createAccount = async (req, res) => {
     deleted: false,
   };
   try {
-    const roles = await Roles.find(find);
+    const records = await Roles.find(find);
     res.render("admin/pages/accounts/create", {
       pageTitle: "Account",
-      roles: roles,
+      records: records,
       prefixAdmin: systemConfig.prefixAdmin,
     });
   } catch (error) {
@@ -60,11 +60,11 @@ module.exports.addAccount = async (req, res) => {
 
 module.exports.editAccount = async (req, res) => {
   const data = await Accounts.findById(req.params.id);
-  const roles = await Roles.find();
+  const records = await Roles.find();
   res.render("admin/pages/accounts/edit", {
     pageTitle: "Account",
     data: data,
-    roles: roles,
+    records: records,
     prefixAdmin: systemConfig.prefixAdmin,
   });
 };
@@ -74,11 +74,11 @@ module.exports.updateAccount = async (req, res) => {
     const data = req.body;
     if (req.body.password) {
       data.password = md5(req.body.password);
-    }else {
-        delete req.body.password;
+    } else {
+      delete req.body.password;
     }
 
-    await Accounts.updateOne({_id: req.params.id}, data);
+    await Accounts.updateOne({ _id: req.params.id }, data);
     req.flash("success", "Update account successfully");
     res.redirect(`${systemConfig.prefixAdmin}/accounts`);
   } catch (error) {

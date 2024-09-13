@@ -30,7 +30,8 @@ module.exports.postLogin = async (req, res) => {
       return;
     }
 
-
+    res.cookie("token", user.token, { signed: true });
+    res.locals.user = user;
 
     res.render("admin/pages/dashboard/index", {
       pageTitle: "Dashboard",

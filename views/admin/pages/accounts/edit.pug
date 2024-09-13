@@ -3,68 +3,71 @@ include ../../mixins/alert.pug
 include ../../mixins/selectTree.pug
 include ../../partials/sider.pug
 block main
-    +alert-error()
-    +alert-success()
-    div(class="flex")
-        +sider()
-        div(class="list-product flex-grow p-4 relative")
+    if roles.permissions.includes('account-edit')
+        +alert-error()
+        +alert-success()
+        div(class="flex")
+            +sider()
             div(class="list-product flex-grow p-4 relative")
-            h2(class="title text-2xl font-bold mb-4") Edit account
+                div(class="list-product flex-grow p-4 relative")
+                h2(class="title text-2xl font-bold mb-4") Edit account
 
-            form(class="grid grid-cols-[1fr,2fr] gap-8 " method="POST" action=`${prefixAdmin}/accounts/update/${data.id}?_method=PATCH` enctype="multipart/form-data")
-                // Left column - General Information
-                div
-                    label(for="name" class="mb-2 block font-semibold") Full name
-                    input(type="text" name="fullName" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required value=`${data.fullName}`)
+                form(class="grid grid-cols-[1fr,2fr] gap-8 " method="POST" action=`${prefixAdmin}/accounts/update/${data.id}?_method=PATCH` enctype="multipart/form-data")
+                    // Left column - General Information
+                    div
+                        label(for="name" class="mb-2 block font-semibold") Full name
+                        input(type="text" name="fullName" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required value=`${data.fullName}`)
 
-                    label(for="password" class="mb-2 block font-semibold") Password
-                    div(class="relative")
-                        input(type="password" name="password"  id="password" placeholder="Password" class="w-full p-2 mb-4 border border-gray-300 rounded"  value='') 
-                        span(class="absolute  top-2 right-4  pr-3 cursor-pointer")
-                            i(class="fas fa-eye" id="togglePassword")
+                        label(for="password" class="mb-2 block font-semibold") Password
+                        div(class="relative")
+                            input(type="password" name="password"  id="password" placeholder="Password" class="w-full p-2 mb-4 border border-gray-300 rounded"  value='') 
+                            span(class="absolute  top-2 right-4  pr-3 cursor-pointer")
+                                i(class="fas fa-eye" id="togglePassword")
 
-                    label(for="email" class="mb-2 block font-semibold") Email
-                    input(type="text" name="email" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required value=`${data.email}`)  
+                        label(for="email" class="mb-2 block font-semibold") Email
+                        input(type="text" name="email" id="name" class="w-full p-2 mb-4 border border-gray-300 rounded" required value=`${data.email}`)  
 
-                    
-                    label(for="status" class="mb-2 block font-semibold") Status
-                    select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded" )
-                        if data.status === "active"
-                            option(value="active" selected) Active
-                            option(value="inactive") Inactive
-                        else
-                            option(value="active" ) Active
-                            option(value="inactive" selected) Inactive
-                    
-                    
-                    
-                    label(for="phone" class="mb-2 block font-semibold") Phone number
-                    input(type="text" name="phone" id="phone" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${data.phone}`) 
-
-
-                div
-                    div(upload-image)
-                        label(for="avatar" class="mb-2 block font-semibold") Avatar
-                        input(upload-image-input type="file" accept="image/*" name="avatar" id="avatar" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                        img( upload-image-preview class="object-cover mb-4" style="width: 60px; height: 60px;" src=`${data.avatar}`)
                         
-                    label(for="roleID" class="mb-2 block font-semibold") Roles
-                    select(name="roleID" id="roleID" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                        each role in roles 
-                            if role.id === data.roleID
-                                option(value=role.id selected)= role.title
+                        label(for="status" class="mb-2 block font-semibold") Status
+                        select(name="status" id="status" class="w-full p-2 mb-4 border border-gray-300 rounded" )
+                            if data.status === "active"
+                                option(value="active" selected) Active
+                                option(value="inactive") Inactive
                             else
-                                option(value=role.id)= role.title
+                                option(value="active" ) Active
+                                option(value="inactive" selected) Inactive
+                        
+                        
+                        
+                        label(for="phone" class="mb-2 block font-semibold") Phone number
+                        input(type="text" name="phone" id="phone" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${data.phone}`) 
 
-                    
-                // Submit button at the bottom spanning both columns
-                div(class="col-span-2 absolute right-[20px] top-[20px]")
-                    button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Update
 
-            div(class="absolute bottom-[30px] right-[20px]")
-                a(href=`${prefixAdmin}/accounts` id="btnCancel" class="bg-slate-700 text-white px-4 py-2 rounded") Cancel
+                    div
+                        div(upload-image)
+                            label(for="avatar" class="mb-2 block font-semibold") Avatar
+                            input(upload-image-input type="file" accept="image/*" name="avatar" id="avatar" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            img( upload-image-preview class="object-cover mb-4" style="width: 60px; height: 60px;" src=`${data.avatar}`)
+                            
+                        label(for="roleID" class="mb-2 block font-semibold") Roles
+                        select(name="roleID" id="roleID" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            each record in records 
+                                if record.id === data.roleID
+                                    option(value=record.id selected)= record.title
+                                else
+                                    option(value=record.id)= record.title
 
-    script(src="/admin/js/create-account.js")
-    //- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+                        
+                    // Submit button at the bottom spanning both columns
+                    div(class="col-span-2 absolute right-[20px] top-[20px]")
+                        button(type="submit" id="btnCreate" class="bg-slate-700 text-white px-4 py-2 rounded") Update
 
+                div(class="absolute bottom-[30px] right-[20px]")
+                    a(href=`${prefixAdmin}/accounts` id="btnCancel" class="bg-slate-700 text-white px-4 py-2 rounded") Cancel
+
+        script(src="/admin/js/create-account.js")
+        //- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    else
+        h2(class="text-2xl font-bold text-center") You don't have permission to view this page
+        a(href=`${prefixAdmin}/accounts` class="block text-center mt-4 text-blue-500") Back to list account
     

@@ -2,31 +2,36 @@ extends ../../layouts/default.pug
 include ../../partials/sider.pug
 
 block main
-    div(class="flex")
-        +sider()
-        div(class="list-product flex-grow p-4 relative")
-            h2(class="title text-2xl font-bold mb-4") Decentrallization 
+    if roles.permissions.includes('roles-view')
+        div(class="flex")
+            +sider()
+            div(class="list-product flex-grow p-4 relative")
+                h2(class="title text-2xl font-bold mb-4") Decentrallization 
 
-            //- table list category
-            table(class="min-w-full table-auto")
-                thead
-                    tr(class="bg-gray-200 text-left")
-                        th(class="p-2") Ordinal
-                        th(class="p-2") Title
-                        th(class="p-2") Permissions
-                        th(class="p-2") Descriptions
-                        th(class="p-2") Actions
-                tbody
-                    each record, index in records
-                        tr
-                            td(class="p-2")= index + 1
-                            td(class="p-2")= record.title
-                            td(class="p-2")= record.permissions
-                            td(class="p-2")= record.description
-                            td(class="p-2")
-                                a(href=`${prefixAdmin}/roles/edit/${record.id}` class="bg-blue-500 text-white px-4 py-2 rounded mr-2.5") Edit
-                                a(href=`${prefixAdmin}/roles/detail/${record.id}` class="bg-gray-500 text-white px-4 py-2 rounded mr-2.5") Detail
-                                a(href=`${prefixAdmin}/roles/delete/${record.id}` class="bg-red-500 text-white px-4 py-2 rounded") Delete
+                //- table list category
+                table(class="min-w-full table-auto")
+                    thead
+                        tr(class="bg-gray-200 text-left")
+                            th(class="p-2") Ordinal
+                            th(class="p-2") Title
+                            th(class="p-2") Permissions
+                            th(class="p-2") Descriptions
+                            th(class="p-2") Actions
+                    tbody
+                        each record, index in records
+                            tr
+                                td(class="p-2")= index + 1
+                                td(class="p-2")= record.title
+                                td(class="p-2")= record.permissions
+                                td(class="p-2")= record.description
+                                td(class="p-2")
+                                    a(href=`${prefixAdmin}/roles/edit/${record.id}` class="bg-blue-500 text-white px-4 py-2 rounded mr-2.5") Edit
+                                    a(href=`${prefixAdmin}/roles/detail/${record.id}` class="bg-gray-500 text-white px-4 py-2 rounded mr-2.5") Detail
+                                    a(href=`${prefixAdmin}/roles/delete/${record.id}` class="bg-red-500 text-white px-4 py-2 rounded") Delete
 
-            div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
-                a(href=`${prefixAdmin}/roles/create` class="bg-slate-700 text-white px-4 py-2 rounded") New roles
+                if roles.permissions.includes('roles-create')
+                    div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
+                        a(href=`${prefixAdmin}/roles/create` class="bg-slate-700 text-white px-4 py-2 rounded") New roles
+    else
+        h2(class="text-2xl font-bold text-center") You don't have permission to view this page
+        a(href=`${prefixAdmin}/roles` class="block text-center mt-4 text-blue-500") Back to list roles
