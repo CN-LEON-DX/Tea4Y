@@ -8,6 +8,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 var flash = require("express-flash");
 
+const moment = require("moment");
+
 const app = express();
 
 app.use(methodOverride("_method"));
@@ -38,8 +40,13 @@ app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 // use folder public
-app.use(express.static(`${__dirname}/public`));
 // tinymce
+app.use(express.static(`${__dirname}/public`));
+// end tinymce
+
+// moment 
+app.locals.moment = moment;
+// end moment
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 // embed const route

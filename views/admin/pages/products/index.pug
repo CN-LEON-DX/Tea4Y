@@ -33,6 +33,7 @@ block main
                             th(class="p-2 hidden select-column") Position
                             th(class="p-2") Price
                             th(class="p-2") Status
+                            th(class="p-2") Created by
                             th(class="p-2") Action
                     tbody
                         each product, index in products
@@ -50,6 +51,10 @@ block main
                                     td(class="p-2 text-green-700")= product.status
                                 else
                                     td(class="p-2 text-red-700")= product.status
+                                td(class="p-2")
+                                    p= product.whoCreated ? product.whoCreated : 'Unknown'
+                                    p(class="text-sm") #{moment(product.createdAt).format('DD/MM/YYYY hh:mm:ss')}
+
                                 td(class="p-2 flex items-center h-full pt-[15px] space-x-2")
                                     if roles.permissions.includes('product-edit')
                                         button(type="button" class="text-yellow-600 bg-white border border-gray-300 rounded-md py-1 px-2 hover:bg-gray-100 edit-btn"

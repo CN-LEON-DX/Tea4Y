@@ -5,6 +5,7 @@ const sortOptionHelper = require("../../helpers/sortProduct.helper");
 const systemConfig = require("../../config/system");
 
 const Category = require("../../models/category.model");
+const Accounts = require("../../models/account.model");
 const createTreeHelper = require("../../helpers/createTree.helper");
 
 const mongoose = require("mongoose");
@@ -27,9 +28,23 @@ module.exports.index = async (req, res) => {
     .skip(skipPage > 0 ? skipPage : 0)
     .sort(sortOption);
 
+  const productsWithCreators = await Promise.all(
+    products.map(async (product) => {
+      const creator = await Accounts.findOne({
+        _id: product.createdBy.accountID,
+        deleted: false,
+      })
+        .select("fullName")
+        .lean();
+
+      product.whoCreated = creator ? creator.fullName : "Unknown";
+      return product;
+    })
+  );
+
   res.render("admin/pages/products/index", {
     pageTitle: "List product",
-    products,
+    products: productsWithCreators,
     priceRange,
     status,
     search,
