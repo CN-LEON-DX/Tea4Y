@@ -4,7 +4,7 @@ include ../../mixins/selectTree.pug
 include ../../partials/sider.pug
 
 block main
-    if roles.permissions.include('product-edit')
+    if roles.permissions.includes('product-edit')
         +alert-error()
         +alert-success()
         div(class="flex")

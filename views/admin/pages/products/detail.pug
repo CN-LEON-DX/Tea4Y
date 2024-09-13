@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 include ../../partials/sider.pug
 
 block main
-    if roles.permissions.include("product-view")
+    if roles.permissions.includes("product-view")
         div(class="flex")
             +sider()
             div(class="list-product flex-grow p-4 relative")

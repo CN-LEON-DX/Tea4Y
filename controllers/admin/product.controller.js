@@ -145,8 +145,7 @@ module.exports.createProduct = async (req, res) => {
     ? parseFloat(req.body.discountPercentage)
     : 0;
 
-  console.log(req.body.thumbnail);
-
+  req.body.createdBy = { accountID: res.locals.user.id };
   try {
     const product = new Product(req.body);
     await product.save();
@@ -216,14 +215,22 @@ module.exports.updateProduct = async (req, res) => {
 module.exports.detailProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    const category = await Category.findOne({
-      _id: product.product_category_id,
-      deleted: false,
-    });
+    if (!product) {
+      res.status(404).send("Product not found");
+      return;
+    }
+    let category;
+    if (product.product_category_id) {
+      const category = await Category.findOne({
+        _id: product.product_category_id,
+        deleted: false,
+      });
+    }
+
     res.render("admin/pages/products/detail", {
       pageTitle: "Detail product",
       product: product,
-      category: category,
+      category: category ? category : "None",
       prefixAdmin: systemConfig.prefixAdmin,
     });
   } catch (error) {

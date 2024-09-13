@@ -1,8 +1,5 @@
 // middlewares/auth.middleware.js
 const configSystem = require("../../config/system");
-
-const crypto = require("crypto");
-
 const Accounts = require("../../models/account.model");
 const Roles = require("../../models/role.model");
 
@@ -20,20 +17,11 @@ module.exports.requireAuth = async (req, res, next) => {
     return;
   }
 
-  const token = crypto.randomBytes(16).toString("hex");
-  user.token = token;
-  await user.save();
-
-  // Fetch the user's role
   const roles = await Roles.findOne({ _id: user.roleID }).select(
     "permissions title"
   );
-
-  // Set the token and role in cookies and locals
-  res.cookie("token", token, { signed: true });
   res.locals.roles = roles;
   res.locals.user = user;
-
   next();
 };
 
