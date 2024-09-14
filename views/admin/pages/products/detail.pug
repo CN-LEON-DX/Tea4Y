@@ -53,6 +53,13 @@ block main
                         label(class="mb-2 block font-semibold") Return Policy
                         p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.returnPolicy ? product.returnPolicy : "Empty"}
 
+                        label(class="mb-2 block") Edited information
+                        ul(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100")
+                            each editor in product.updatedBy.reverse()
+                                li(class="flex justify-between")
+                                    span= editor.nameEditor
+                                    span= moment(editor.updatedAt).format("DD/MM/YYYY HH:mm:ss")
+
                     div(class="col-span-2 absolute right-[20px] top-[20px] hover:bg-red-600")
                         a(href=`${prefixAdmin}/products/edit/${product.id}` class="bg-slate-700 text-white px-4 py-2 rounded") Edit product
     else

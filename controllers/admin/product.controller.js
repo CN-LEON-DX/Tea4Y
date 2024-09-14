@@ -56,11 +56,21 @@ module.exports.index = async (req, res) => {
 module.exports.editFast = async (req, res) => {
   const { id, title, price, status } = req.params;
   try {
-    await Product.findByIdAndUpdate(id, {
-      title: title,
-      price: price,
-      status: status,
-    });
+    let updated = {
+      accountID: res.locals.user.id,
+      nameEditor: res.locals.user.fullName,
+      updatedAt: new Date(),
+    };
+
+    await Product.updateOne(
+      { _id: req.params.id },
+      {
+        title: title,
+        price: price,
+        status: status,
+        $push: { updatedBy: updated },
+      }
+    );
     req.flash("success", "Product updated successfully");
     res.redirect("back");
   } catch (error) {
@@ -230,8 +240,20 @@ module.exports.updateProduct = async (req, res) => {
   if (req.file) {
     req.body.thumbnail = `/admin/uploads/${req.file.filename}`;
   }
+  let updated = {
+    accountID: res.locals.user.id,
+    nameEditor: res.locals.user.fullName,
+    updatedAt: new Date(),
+  };
+
   try {
-    await Product.findByIdAndUpdate(req.params.id, req.body);
+    await Product.updateOne(
+      { _id: req.params.id },
+      {
+        ...req.body,
+        $push: { updatedBy: updated },
+      }
+    );
     req.flash("success", "Product updated successfully");
     res.redirect(`${systemConfig.prefixAdmin}/products`);
   } catch (error) {
@@ -254,6 +276,9 @@ module.exports.detailProduct = async (req, res) => {
         deleted: false,
       });
     }
+    let editor = await Product.findOne({
+      _id: req.params.id,
+    }).select("updatedBy");
 
     res.render("admin/pages/products/detail", {
       pageTitle: "Detail product",

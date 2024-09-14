@@ -1,0 +1,38 @@
+extends ../../layouts/default.pug
+include ../../mixins/tableCategory.pug
+include ../../mixins/alert.pug
+include ../../partials/sider.pug
+
+block main
+    +alert-error()
+    +alert-success()
+    div(class="flex")
+        +sider()
+        div(class="list-product flex-grow p-4 relative")
+            h2(class="title text-2xl font-bold mb-4") Account Information
+
+            //- Display user information
+            div(class="account-info bg-white p-6 shadow-md rounded-lg")
+                div(class="mb-4 flex") 
+                    p(class="font-semibold mr-4" style="margin-right: 10px") Name:
+                    p(class="ml-2")= user.fullName
+
+                div(class="mb-4 flex")
+                    p(class="font-semibold mr-4" style="margin-right: 10px") Email:
+                    p(class="ml-2")= user.email
+
+                div(class="mb-4 flex")
+                    p(class="font-semibold mr-4" style="margin-right: 10px") Phone:
+                    p(class="ml-2")= user.phone
+
+                div(class="mb-4 flex")
+                    p(class="font-semibold mr-4" style="margin-right: 10px") Status:
+                    p(class="ml-2")= user.status ? 'Active' : 'Inactive'
+
+                div(class="mb-4 flex")
+                    p(class="font-semibold mr-4" style="margin-right: 10px") Role:
+                    p(class="ml-2")= user.roles
+
+                //- Edit button
+                div(class="mt-6 text-right")
+                    a(href=`${prefixAdmin}/accounts/edit/${user._id}` class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Edit Information
