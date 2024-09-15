@@ -3,7 +3,7 @@ html
     head 
         title #{pageTitle}
         link(href="/client/css/output.css" rel="stylesheet")
-    body
+    body.container.mx-auto
         include ../partials/header.pug
 
         block main
@@ -11,3 +11,4 @@ html
         include ../partials/footer.pug
 
         script(src="/client/js/script.js") 
+        script(src="/client/js/dropdown.js")

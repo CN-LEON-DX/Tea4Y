@@ -1,8 +1,9 @@
 const productRouters = require("./product.route");
 const homeRouters = require("./home.route");
+const categoryMiddleware = require("../../middlewares/client/category.middleware");
 
 module.exports = (app) => {
-  app.use("/", homeRouters);
+  app.use("/", categoryMiddleware.category, homeRouters);
 
-  app.use("/products", productRouters);
+  app.use("/products", categoryMiddleware.category, productRouters);
 };

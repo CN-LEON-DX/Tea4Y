@@ -1,11 +1,33 @@
+include ../mixins/sub-menu.pug
+
 header.header
-    .container.mx-auto.flex.items-center.justify-between.p-4
-        .inner-logo
-            a(href="/")
-                img(src="/client/images/home.jpeg", alt="Logo" class="w-12 h-12 rounded-full") 
-        .inner-menu
-            ul.flex.space-x-4
-                li
-                    a(href="/" class="text-black hover:underline") Trang chủ
-                li
-                    a(href="/products" class="text-black hover:underline") Sản phẩm
+  .container.mx-auto.flex.items-center.justify-between.p-4
+    // Logo Section
+    .inner-logo
+      a(href="/")
+        img(src="/client/images/home.jpeg", alt="Logo" class="w-12 h-12 rounded-full")
+    
+    // Navigation Menu Section
+    .inner-menu
+      ul.flex.space-x-4
+        // Home link
+        li
+          a(href="/" class="text-black hover:underline") Trang chủ
+
+        // Product Categories Dropdown
+        li.relative.group
+          a(href="/products" class="text-black hover:underline") Sản phẩm
+          // Call the sub-menu mixin to display categories and subcategories
+          +sub-menu(layoutCategory, '/products')
+
+        // Services Dropdown
+        li.relative.group
+          a(href="/services" class="text-black hover:underline") Dịch vụ
+          // Static submenu for services
+          ul(class="hidden absolute bg-white shadow-lg rounded-lg group-hover:block mt-2 space-y-2 w-48")
+            li
+              a(href="/services/service1" class="block px-4 py-2 text-black hover:bg-gray-100") Service 1
+            li
+              a(href="/services/service2" class="block px-4 py-2 text-black hover:bg-gray-100") Service 2
+            li
+              a(href="/services/service3" class="block px-4 py-2 text-black hover:bg-gray-100") Service 3

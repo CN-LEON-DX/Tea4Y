@@ -1,0 +1,8 @@
+mixin sub-menu(items, path)
+  ul(class="hidden absolute bg-white shadow-lg rounded-lg group-hover:block mt-2 space-y-2 w-48")
+    each item in items
+      li.relative.group
+        a(href=`${path}/${item.slug}` class="block px-4 py-2 text-black hover:bg-gray-100")= item.title
+        if item.children && item.children.length > 0
+          // Recursive call to sub-menu for children categories
+          +sub-menu(item.children, path)
