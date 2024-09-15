@@ -8,6 +8,8 @@ const Category = require("../../models/category.model");
 const Accounts = require("../../models/account.model");
 const createTreeHelper = require("../../helpers/createTree.helper");
 
+const slugify = require("slugify");
+
 const mongoose = require("mongoose");
 
 module.exports.index = async (req, res) => {
@@ -183,7 +185,12 @@ module.exports.createProduct = async (req, res) => {
     ? parseFloat(req.body.discountPercentage)
     : 0;
 
-  req.body.createdBy = { accountID: res.locals.user.id };
+  // slug
+  if (req.body.title) {
+    req.body.slug = slugify(req.body.title + totalProducts, { lower: true });
+  }
+  console.log(req.body);
+
   try {
     const product = new Product(req.body);
     await product.save();
@@ -237,9 +244,7 @@ module.exports.updateProduct = async (req, res) => {
   req.body.discountPercentage = req.body.discountPercentage
     ? parseFloat(req.body.discountPercentage)
     : 0;
-  if (req.file) {
-    req.body.thumbnail = `/admin/uploads/${req.file.filename}`;
-  }
+
   let updated = {
     accountID: res.locals.user.id,
     nameEditor: res.locals.user.fullName,

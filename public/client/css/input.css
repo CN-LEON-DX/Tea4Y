@@ -2,14 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Ensure the sub-menu remains visible when hovering over its items */
-.group:hover > ul,
-.group-hover:hover > ul {
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item:hover .dropdown-menu {
   display: block;
 }
 
-/* Ensure the nested sub-menu remains visible when hovering over its items */
-.group:hover > ul > .group:hover > ul,
-.group-hover:hover > ul > .group-hover:hover > ul {
+.dropdown-menu:hover {
   display: block;
 }

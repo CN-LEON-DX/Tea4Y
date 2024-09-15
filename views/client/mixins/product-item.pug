@@ -1,0 +1,14 @@
+
+mixin product-item(product)
+    .bg-white.shadow-lg.rounded-lg.overflow-hidden.p-4
+        .inner-image.relative
+            img(src=product.thumbnail alt=product.title class="w-auto h-48 object-cover" imageProduct data-slug=product.slug)
+            if product.featured == true
+                span(class="p-2 bg-red-600 text-white rounded-[20px] top-0 right-0 text-sm absolute") Hot
+        .p-4
+        h2.text-lg.font-semibold.mb-2.text-ellipsis.line-clamp-1(titleProduct data-slug=product.slug) #{product.title}
+        p.text-gray-600.text-ellipsis.line-clamp-3 #{product.description}
+        p.text-lg.font-bold.mt-2 Price: #{product.newPrice}$
+        p.text-sm.text-gray-500.line-through #{product.price}$
+        div.mt-4
+            span(class="p-2 bg-teal-700 text-white rounded-full mt-4 text-sm") Discount: #{product.discountPercentage ? product.discountPercentage : 0 }%

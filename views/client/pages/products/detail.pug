@@ -21,29 +21,28 @@ block main
                     p.text-sm.text-gray-500.line-through #{product.price}$
                     span(class="p-2 bg-red-500 text-white rounded-full mt-2 inline-block text-center") #{product.discountPercentage}% Off
                 else
-                    p.text-sm.text-gray-500 #{product.price}$
+                    p.text-sm.text-gray-500.font-bold #{product.price}$
+                //- button buy now and add to cart
+                button(class="bg-[#ec2F4B] text-white p-2 rounded-md w-[200px] mt-4 mr-4") Buy now
+                button(class="bg-[#009FFF] text-white p-2 rounded-md w-[200px] mt-2") Add to cart
         div()
-
             label(class="mb-2 block font-semibold") Category
-            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.category}
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.category ? product.category : 'Uncategorized'}
 
             label(class="mb-2 block font-semibold") Stock
             p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.stock}
 
             label(class="mb-2 block font-semibold") Rating
-            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.rating}
-
-            label(class="mb-2 block font-semibold") Status
-            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.status}
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.rating ? product.rating : '5.0'}
 
             label(class="mb-2 block font-semibold") Warranty
-            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.warrantyInformation}
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.warrantyInformation ? product.warrantyInformation : 'No warranty information available'}
 
             label(class="mb-2 block font-semibold") Return Policy
-            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.returnPolicy}
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.returnPolicy ? product.returnPolicy : 'No return policy available'}
 
-            label(class="mb-2 block font-semibold") Tags
-            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.tags}
+            label(class="mb-2 block font-semibold") Tag
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.tags ? product.tags.join(', ') : 'No tags available'}
 
         //- Reviews and Ratings section
         //- div.mt-8

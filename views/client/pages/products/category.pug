@@ -2,6 +2,6 @@ extends ../../layouts/default.pug
 include ../../mixins/product-layout.pug
 block main
   .container.mx-auto.p-4
-    h2.text-2xl.font-semibold.mb-8.mt-4 Danh sách sản phẩm
+    h2.text-2xl.font-semibold.mb-8.mt-4 #{pageTitle}
     +product-grid(products)
-  script(src="/client/js/list-product.js") 
+  script(src="/client/js/list-product.js")

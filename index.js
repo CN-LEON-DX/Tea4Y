@@ -6,6 +6,9 @@ var path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+
+
+
 var flash = require("express-flash");
 
 const moment = require("moment");
@@ -44,10 +47,13 @@ app.set("view engine", "pug");
 app.use(express.static(`${__dirname}/public`));
 // end tinymce
 
-// moment 
+// moment
 app.locals.moment = moment;
 // end moment
-app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
 
 // embed const route
 routeClient(app);

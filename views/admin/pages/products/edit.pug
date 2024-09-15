@@ -48,12 +48,12 @@ block main
                         
                         label(for="featured" class="mb-2 block font-semibold") Featured Tags
                         select(name="featured" id="featured" class="w-full p-2 mb-4 border border-gray-300 rounded")
-                            if product.featured === "Featured"
-                                option(value="Featured" selected) Featured
-                                option(value="Normal") Normal
+                            if product.featured === true
+                                option(value="1" selected) Featured
+                                option(value="0" )  Normal
                             else
-                                option(value="Featured") Featured
-                                option(value="Normal" selected) Normal
+                                option(value="1" ) Featured
+                                option(value="0" selected) Normal
 
                     div
                         div(upload-image)

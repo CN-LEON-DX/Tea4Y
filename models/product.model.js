@@ -1,7 +1,5 @@
 // models/product.model.js
-
 const mongoose = require("mongoose");
-const { create } = require("./account.model");
 
 const productSchema = new mongoose.Schema(
   {
@@ -13,9 +11,13 @@ const productSchema = new mongoose.Schema(
     stock: { type: Number, default: 0 },
     thumbnail: { type: String },
     status: { type: String, default: "active" },
-    featured: String,
+    featured: Boolean,
     position: { type: Number },
-    slug: { type: String, unique: true },
+    slug: { type: String, slug: "title", unique: true },
+    brand: { type: String },
+    rating: { type: Number, default: 5 },
+    returnPolicy: { type: String },
+    warrantyInformation: { type: String },
     createdBy: {
       accountID: String,
       createdAt: {
@@ -23,7 +25,7 @@ const productSchema = new mongoose.Schema(
         default: Date.now,
       },
     },
-    deleted: { type: Boolean },
+    deleted: { type: Boolean, default: false },
     deletedBy: {
       accountID: String,
       deletedAt: Date,
