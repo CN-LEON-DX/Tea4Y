@@ -2,4 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure the sub-menu remains visible when hovering over its items */
+.group:hover > ul,
+.group-hover:hover > ul {
+  display: block;
+}
 
+/* Ensure the nested sub-menu remains visible when hovering over its items */
+.group:hover > ul > .group:hover > ul,
+.group-hover:hover > ul > .group-hover:hover > ul {
+  display: block;
+}

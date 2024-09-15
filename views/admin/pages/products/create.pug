@@ -41,8 +41,10 @@ block main
                         label(for="position" class="mb-2 block font-semibold") Position
                         input(type="number" name="position" min="1" id="position" placeholder="Auto increase" class="w-full p-2 mb-4 border border-gray-300 rounded") 
                         
-                        label(for="tags" class="mb-2 block font-semibold") Tags
-                        input(type="text" name="tags" id="tags" class="w-full p-2 mb-4 border border-gray-300 rounded") 
+                        label(for="featured" class="mb-2 block font-semibold") Feature Tags
+                        select(name="featured" id="featured" class="w-full p-2 mb-4 border border-gray-300 rounded")
+                            option(value="featured") Featured
+                            option(value="normal") Normal
 
 
                     div

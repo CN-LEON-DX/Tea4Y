@@ -616,6 +616,10 @@ video {
   bottom: 40px;
 }
 
+.left-full {
+  left: 100%;
+}
+
 .right-2 {
   right: 0.5rem;
 }
@@ -628,6 +632,10 @@ video {
   right: 20px;
 }
 
+.top-0 {
+  top: 0px;
+}
+
 .top-2 {
   top: 0.5rem;
 }
@@ -638,6 +646,10 @@ video {
 
 .top-\[20px\] {
   top: 20px;
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 .col-span-2 {
@@ -733,6 +745,18 @@ video {
 
 .mt-auto {
   margin-top: auto;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
+.mt-0 {
+  margin-top: 0px;
+}
+
+.mr-6 {
+  margin-right: 1.5rem;
 }
 
 .line-clamp-1 {
@@ -1145,6 +1169,10 @@ video {
   --tw-gradient-to: #ec4899 var(--tw-gradient-to-position);
 }
 
+.fill-current {
+  fill: currentColor;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1358,6 +1386,10 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
@@ -1370,6 +1402,20 @@ video {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+/* Ensure the sub-menu remains visible when hovering over its items */
+
+.group:hover > ul,
+.group-hover:hover > ul {
+  display: block;
+}
+
+/* Ensure the nested sub-menu remains visible when hovering over its items */
+
+.group:hover > ul > .group:hover > ul,
+.group-hover:hover > ul > .group-hover:hover > ul {
+  display: block;
 }
 
 .hover\:bg-blue-700:hover {
@@ -1535,5 +1581,3 @@ video {
     background-color: rgb(55 65 81 / var(--tw-bg-opacity));
   }
 }
-
-

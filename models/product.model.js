@@ -13,6 +13,7 @@ const productSchema = new mongoose.Schema(
     stock: { type: Number, default: 0 },
     thumbnail: { type: String },
     status: { type: String, default: "active" },
+    featured: String,
     position: { type: Number },
     slug: { type: String, unique: true },
     createdBy: {
@@ -29,10 +30,10 @@ const productSchema = new mongoose.Schema(
     },
     updatedBy: [
       {
-      accountID: String,
-      nameEditor: String,
-      updatedAt: Date,
-    }
+        accountID: String,
+        nameEditor: String,
+        updatedAt: Date,
+      },
     ],
   },
   {

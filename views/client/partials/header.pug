@@ -1,11 +1,10 @@
-include ../mixins/sub-menu.pug
-
+// Layout for the main menu
 header.header
-  .container.mx-auto.flex.items-center.justify-between.p-4
+  .container.mx-auto.flex.items-center.p-4
     // Logo Section
     .inner-logo
       a(href="/")
-        img(src="/client/images/home.jpeg", alt="Logo" class="w-12 h-12 rounded-full")
+        img(src="/client/images/home.jpeg", alt="Logo" class="w-12 h-12 rounded-full mr-6")
     
     // Navigation Menu Section
     .inner-menu
@@ -14,17 +13,29 @@ header.header
         li
           a(href="/" class="text-black hover:underline") Trang chủ
 
-        // Product Categories Dropdown
+        // Product Categories Dropdown (parent)
         li.relative.group
-          a(href="/products" class="text-black hover:underline") Sản phẩm
-          // Call the sub-menu mixin to display categories and subcategories
-          +sub-menu(layoutCategory, '/products')
+          a(href="/products" class="text-black hover:underline flex items-center")
+            span Sản phẩm
+            svg.ml-1.w-4.h-4.fill-current.text-gray-500
+              use(xlink:href="#chevron-down")
 
-        // Services Dropdown
+          // Dropdown for product categories (child)
+          ul(class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg mt-2 w-48 z-10")
+            each category in layoutCategory
+              li
+                a(href=`/products/${category.slug}` class="block px-4 py-2 text-black hover:bg-gray-100")
+                  span= category.title
+
+        // Services Dropdown (Static content example)
         li.relative.group
-          a(href="/services" class="text-black hover:underline") Dịch vụ
+          a(href="/services" class="text-black hover:underline flex items-center")
+            span Dịch vụ
+            svg.ml-1.w-4.h-4.fill-current.text-gray-500
+              use(xlink:href="#chevron-down")
+
           // Static submenu for services
-          ul(class="hidden absolute bg-white shadow-lg rounded-lg group-hover:block mt-2 space-y-2 w-48")
+          ul(class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg mt-2 w-48 z-10")
             li
               a(href="/services/service1" class="block px-4 py-2 text-black hover:bg-gray-100") Service 1
             li
