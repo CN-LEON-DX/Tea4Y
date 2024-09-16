@@ -1,19 +1,18 @@
 extend ../../layouts/default.pug
-
+include ../../mixins/alert.pug
 block main
+    +alert-error()
+    +alert-success()
     div(class="container mx-auto p-4")
         h2.text-2xl.font-semibold.mb-8.mt-4 Product Details
         
         div(class="grid grid-cols-[2fr,5fr] gap-8")
-            //- Left side: Image and main product info
             div
                 img(src=product.thumbnail alt=product.title class="w-[300px] h-auto object-cover rounded-md mb-4")
                 
-                //- Primary info
                 
 
-            //- Right side: Additional product details
-            form(action=`/cart/add/${product.id}` method="POST")
+            form( method="POST" action=`/cart/add/${product.id}` )
                 h2.text-3xl.font-semibold.mb-2.text-ellipsis #{product.title}
                 p.text-lg.font-bold.mb-2 Price: #{product.newPrice}$
                 if product.discountPercentage
@@ -25,11 +24,12 @@ block main
                 div(class="flex items-center ")
                     label(class="mb-2 block font-semibold" for="quantity") Quantity
                     input(type="number" name="quantity" min="1" max=product.stock value="1" class="mb-2 ml-4 border border-grey outline-none p-2 pr-[60px]") 
-                //- button buy now and add to cart
-                button(class="bg-[#ec2F4B] text-white p-2 rounded-md w-[200px] mt-4 mr-4" type="submit") Buy now
-                button(class="bg-[#009FFF] text-white p-2 rounded-md w-[200px] mt-2" type="submit") Add to cart
+                if (product.stock > 0)
+                    button(class="bg-[#ec2F4B] text-white p-2 rounded-md w-[200px] mt-4 mr-4" type="submit") Buy now
+                    button(class="bg-[#009FFF] text-white p-2 rounded-md w-[200px] mt-2" type="submit") Add to cart
+                else 
+                    button(class="bg-[#009FFF] text-white p-2 rounded-md w-[200px] mt-2" type="submit") Out of stock
         div()
-            
             label(class="mb-2 block font-semibold") Category
             p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.categoryName ? product.categoryName : 'Uncategorized'}
 
@@ -57,3 +57,5 @@ block main
         //-             p.font-semibold #{review.username}
         //-             p #{review.comment}
         //-             p.text-sm.text-gray-500 Rating: #{review.rating}/5
+
+    script(src="/client/js/detailProduct.js")

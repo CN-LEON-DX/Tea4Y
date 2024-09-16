@@ -32,9 +32,13 @@ module.exports.detailProduct = async (req, res) => {
     if (!product) {
       res.status(404).send("Product not found");
     }
-    const category = await Category.findById(product.product_category_id);
+    if (product.product_category_id) {
+      const category = await Category.findById(product.product_category_id);
 
-    product.categoryName = category.title;
+      product.categoryName = category.title;
+    } else {
+      product.categoryName = "None";
+    }
 
     product.newPrice = (
       product.price *
@@ -66,8 +70,6 @@ module.exports.category = async (req, res) => {
     });
 
     arrProducts.push(category.id);
-
-    console.log(arrProducts);
 
     let products = await Product.find({
       product_category_id: { $in: arrProducts },

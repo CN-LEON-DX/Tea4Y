@@ -11,25 +11,7 @@ const cartSchema = new mongoose.Schema(
             quantity: Number,
         }
     ],
-    createdBy: {
-      accountID: String,
-      createdAt: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-    deleted: { type: Boolean, default: false },
-    deletedBy: {
-      accountID: String,
-      deletedAt: Date,
-    },
-    updatedBy: [
-      {
-        accountID: String,
-        nameEditor: String,
-        updatedAt: Date,
-      },
-    ],
+    
   },
   {
     timestamps: true,
