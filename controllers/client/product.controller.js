@@ -5,6 +5,8 @@ const Product = require("../../models/product.model");
 const Category = require("../../models/category.model");
 const systemConfig = require("../../config/system");
 
+const categoryHelpers = require("../../helpers/categoryHelper");
+
 module.exports.index = async (req, res) => {
   const products = await Product.find({
     status: "active",
@@ -23,23 +25,22 @@ module.exports.index = async (req, res) => {
 module.exports.detailProduct = async (req, res) => {
   try {
     const product = await Product.findOne({
-      slug: req.params.slug,
+      slug: req.params.slugProduct,
       deleted: false,
       status: "active",
     });
+    if (!product) {
+      res.status(404).send("Product not found");
+    }
+    const category = await Category.findById(product.product_category_id);
 
-    const category = Category.findOne({
-      _id: product.product_category_id,
-    });
-    product.category = category.title;
+    product.categoryName = category.title;
 
     product.newPrice = (
       product.price *
       (1.0 - product.discountPercentage / 100)
     ).toFixed(2);
-    if (!product) {
-      res.status(404).send("Product not found");
-    }
+
     res.render(`client/pages/products/detail`, {
       pageTitle: "Detail product",
       product: product,
@@ -51,20 +52,31 @@ module.exports.detailProduct = async (req, res) => {
 };
 
 module.exports.category = async (req, res) => {
-  console.log(req.params.slugCategory);
   try {
     const category = await Category.findOne({
       slug: req.params.slugCategory,
       deleted: false,
     });
+
+    const subCategories = await categoryHelpers.getSubCategory(category.id);
+
+    let arrProducts = [];
+    subCategories.forEach((sub) => {
+      arrProducts.push(sub.id);
+    });
+
+    arrProducts.push(category.id);
+
+    console.log(arrProducts);
+
     let products = await Product.find({
-      product_category_id: category.id,
+      product_category_id: { $in: arrProducts },
+      status: "active",
       deleted: false,
-    }).sort({ position: -1 });
+    });
 
     products = productsHelper.productsDisplay(products);
 
-    console.log(products);
     res.render("client/pages/products/category", {
       pageTitle: category.title,
       products: products,

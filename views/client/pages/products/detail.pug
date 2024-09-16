@@ -13,24 +13,25 @@ block main
                 
 
             //- Right side: Additional product details
-            div
+            form(action=`/cart/add/${product.id}` method="POST")
                 h2.text-3xl.font-semibold.mb-2.text-ellipsis #{product.title}
-                p.text-gray-600.mb-2.text-ellipsis.line-clamp-3 #{product.description}
                 p.text-lg.font-bold.mb-2 Price: #{product.newPrice}$
                 if product.discountPercentage
                     p.text-sm.text-gray-500.line-through #{product.price}$
-                    span(class="p-2 bg-red-500 text-white rounded-full mt-2 inline-block text-center") #{product.discountPercentage}% Off
+                    span(class="p-2 bg-red-500 text-white rounded-full mt-2 inline-block text-center mr-4") #{product.discountPercentage}% Off
                 else
                     p.text-sm.text-gray-500.font-bold #{product.price}$
+                label(class="mb-2 block font-semibold mt-4") Stock: #{product.stock}
+                div(class="flex items-center ")
+                    label(class="mb-2 block font-semibold" for="quantity") Quantity
+                    input(type="number" name="quantity" min="1" max=product.stock value="1" class="mb-2 ml-4 border border-grey outline-none p-2 pr-[60px]") 
                 //- button buy now and add to cart
-                button(class="bg-[#ec2F4B] text-white p-2 rounded-md w-[200px] mt-4 mr-4") Buy now
-                button(class="bg-[#009FFF] text-white p-2 rounded-md w-[200px] mt-2") Add to cart
+                button(class="bg-[#ec2F4B] text-white p-2 rounded-md w-[200px] mt-4 mr-4" type="submit") Buy now
+                button(class="bg-[#009FFF] text-white p-2 rounded-md w-[200px] mt-2" type="submit") Add to cart
         div()
+            
             label(class="mb-2 block font-semibold") Category
-            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.category ? product.category : 'Uncategorized'}
-
-            label(class="mb-2 block font-semibold") Stock
-            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.stock}
+            p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.categoryName ? product.categoryName : 'Uncategorized'}
 
             label(class="mb-2 block font-semibold") Rating
             p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.rating ? product.rating : '5.0'}
@@ -43,6 +44,9 @@ block main
 
             label(class="mb-2 block font-semibold") Tag
             p(class="w-full p-2 mb-4 border border-gray-300 rounded bg-gray-100") #{product.tags ? product.tags.join(', ') : 'No tags available'}
+
+            p(class="mb-2 block font-semibold") Description
+            p(class="w-full  mb-4  rounded ") !{product.description ? product.description : 'Uncategorized'}
 
         //- Reviews and Ratings section
         //- div.mt-8

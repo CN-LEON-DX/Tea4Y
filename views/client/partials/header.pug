@@ -1,18 +1,20 @@
 header.header
-  .container.mx-auto.flex.items-center.p-4
+  .container.mx-auto.flex.items-center.justify-between.p-4.shadow-md
     // Logo Section
     .inner-logo
       a(href="/")
         img(src="/client/images/home.jpeg", alt="Logo" class="w-12 h-12 rounded-full mr-6")
-    
-    .inner-menu
+
+    // Navigation Section
+    .inner-menu.flex.items-center.space-x-8
       ul.flex.space-x-4
         li
-          a(href="/" class="text-black hover:underline") Trang chủ
+          a(href="/" class="text-black font-semibold hover:underline") Home
 
+        // Sản phẩm with dropdown
         li.relative.group.nav-item
-          a(href="/products" class="text-black hover:underline flex items-center")
-            span Sản phẩm
+          a(href="/products" class="text-black font-semibold hover:underline flex items-center")
+            span Products
             svg.ml-1.w-4.h-4.fill-current.text-gray-500
               use(xlink:href="#chevron-down")
 
@@ -22,9 +24,10 @@ header.header
                 a(href=`/products/${category.slug}` class="block px-4 py-2 text-black hover:bg-gray-100")
                   span= category.title
 
+        // Dịch vụ with dropdown
         li.relative.group
-          a(href="/services" class="text-black hover:underline flex items-center")
-            span Dịch vụ
+          a(href="/services" class="text-black font-semibold hover:underline flex items-center")
+            span Services 
             svg.ml-1.w-4.h-4.fill-current.text-gray-500
               use(xlink:href="#chevron-down")
 
@@ -35,3 +38,10 @@ header.header
               a(href="/services/service2" class="block px-4 py-2 text-black hover:bg-gray-100") Service 2
             li
               a(href="/services/service3" class="block px-4 py-2 text-black hover:bg-gray-100") Service 3
+
+      // Search Form Section
+      .flex.items-center
+        form(action="/search" class="flex")
+          input(type="text" name="keyword" placeholder="Search..." class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" value=keywordSearch ? keywordSearch : "")
+          button(class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300 ease-in-out" type="submit") 
+            | Search

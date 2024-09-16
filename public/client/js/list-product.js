@@ -5,7 +5,7 @@ if (productImgItems) {
     productItem.addEventListener("click", () => {
       const productSLug = productItem.getAttribute("data-slug");
       console.log(productSLug);
-      window.location.href = `/products/${productSLug}`;
+      window.location.href = `/products/detail/${productSLug}`;
     });
   }
 }
@@ -15,7 +15,7 @@ if (productTitleItems) {
     productItem.addEventListener("click", () => {
       const productSlug = productItem.getAttribute("data-slug");
       console.log(productSlug);
-      window.location.href = `/products/${productSlug}`;
+      window.location.href = `/products/detail/${productSlug}`;
     });
   }
 }
