@@ -1,17 +1,14 @@
 header.header
   .container.mx-auto.flex.items-center.justify-between.p-4.shadow-md
-    // Logo Section
     .inner-logo
       a(href="/")
         img(src="/client/images/home.jpeg", alt="Logo" class="w-12 h-12 rounded-full mr-6")
 
-    // Navigation Section
     .inner-menu.flex.items-center.space-x-8
       ul.flex.space-x-4
         li
           a(href="/" class="text-black font-semibold hover:underline") Home
 
-        // Sản phẩm with dropdown
         li.relative.group.nav-item
           a(href="/products" class="text-black font-semibold hover:underline flex items-center")
             span Products
@@ -24,7 +21,6 @@ header.header
                 a(href=`/products/${category.slug}` class="block px-4 py-2 text-black hover:bg-gray-100")
                   span= category.title
 
-        // Dịch vụ with dropdown
         li.relative.group
           a(href="/services" class="text-black font-semibold hover:underline flex items-center")
             span Services 
@@ -39,9 +35,14 @@ header.header
             li
               a(href="/services/service3" class="block px-4 py-2 text-black hover:bg-gray-100") Service 3
 
-      // Search Form Section
+        li.relative
+          a(href="/cart" class="text-black font-semibold flex items-center")
+            <i class="fa-solid fa-cart-shopping"></i>
+            span.ml-1 Cart
+            span(class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold ml-2")  #{miniCart ? miniCart.totalQuantity : 0}
+
       .flex.items-center
         form(action="/search" class="flex")
           input(type="text" name="keyword" placeholder="Search..." class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" value=keywordSearch ? keywordSearch : "")
-          button(class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300 ease-in-out" type="submit") 
+          button(class="bg-black text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300 ease-in-out" type="submit") 
             | Search

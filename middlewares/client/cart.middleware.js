@@ -1,6 +1,6 @@
 const Cart = require("../../models/cart.model");
 
-module.exports.cartID  = async (req, res, next) => {
+module.exports.cartID = async (req, res, next) => {
   const cartCookieID = req.cookies.cartID;
 
   if (!cartCookieID) {
@@ -13,7 +13,16 @@ module.exports.cartID  = async (req, res, next) => {
       expires: new Date(Date.now() + expiresTime),
     });
   } else {
-    
+    const cart = await Cart.findOne({ _id: cartCookieID });
+
+    // Get total quantity of products inside the cart
+    cart.totalQuantity = cart.products.reduce((sum, item) => {
+      return sum + item.quantity;
+    }, 0);
+
+    // Set the miniCart data
+    res.locals.miniCart = cart;
+
   }
   next();
 };
