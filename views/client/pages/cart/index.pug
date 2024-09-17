@@ -1,0 +1,53 @@
+extends ../../layouts/default.pug
+include ../../mixins/product-layout.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-error()
+  +alert-success()
+  .container.mx-auto.p-4
+    h2.text-2xl.font-semibold.mb-8.mt-4 Cart
+    if (cartProducts)
+      form(action="/cart/update-quantities" method="POST")
+        table(class="min-w-full divide-y divide-gray-200")
+          thead(class="bg-gray-50")
+            tr
+              th(class="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider") Ordinal
+              th(class="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider") Image
+              th(class="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider") Product Name
+              th(class="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider") Quantity
+              th(class="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider") Price
+              th(class="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider") Total
+              th(class="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider") Edit
+
+          tbody(class="bg-white divide-y divide-gray-200")
+            each product, index in cartProducts
+              tr
+                td(class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900") #{index + 1}
+                td(class="px-6 py-4 whitespace-nowrap")
+                  img(src=product.thumbnail, alt=product.title, class="w-16 h-16 object-cover")
+                td(class="px-6 py-4 whitespace-nowrap text-md text-black") #{product.title}
+                td(class="px-6 py-4 whitespace-nowrap text-md text-black")
+                  .flex.items-center
+                    button(class="bg-gray-200 text-gray-600 px-2 py-1 rounded-l-md hover:bg-gray-300" type="button" data-action="decrease" data-index=index) -
+                    span(class="px-3" data-quantity=index product-id=product.id) #{product.quantity}
+                    button(class="bg-gray-200 text-gray-600 px-2 py-1 rounded-r-md hover:bg-gray-300" type="button" data-action="increase" data-index=index) +
+
+
+                td(class="px-6 py-4 whitespace-nowrap text-md text-black") $#{product.newPrice}
+                td(class="px-6 py-4 whitespace-nowrap text-md text-black") $#{(product.newPrice * product.quantity).toFixed(2)}
+                td(class="px-6 py-4 whitespace-nowrap text-md font-medium")
+                  a(class="text-red-600 hover:text-red-700" href=`cart/delete/${product.id}`) Delete
+
+        .flex.justify-end.mt-6
+          p(class="text-lg font-md ") Total price: #{totalPrice ? totalPrice : 0 }$
+
+        .flex.justify-end.mt-6
+          button(class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-300 ease-in-out" btnUpdateQuantity) Update  quantities
+
+        .flex.justify-end.mt-6
+          a(href="/checkout" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out") Pay Now
+    else
+      p.text-center.font-bold.text-bg Your cart is empty !
+
+    script(src="/client/js/cartProduct.js")
