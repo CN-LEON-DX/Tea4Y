@@ -105,11 +105,9 @@ module.exports.deleteProduct = async (req, res) => {
 module.exports.updateQuantities = async (req, res) => {
   try {
     const cartID = req.cookies.cartID;
-    const quantities = req.body.quantities;
-    console.log(quantities);
+    const { products } = req.body;
 
-    for (const productID in quantities) {
-      const quantity = parseInt(quantities[productID]);
+    for (const { productID, quantity } of products) {
       await Cart.updateOne(
         {
           _id: cartID,
@@ -120,9 +118,8 @@ module.exports.updateQuantities = async (req, res) => {
         }
       );
     }
-
     req.flash("success", "Updated quantities successfully!");
-    res.redirect("back");
+    res.json({ success: true });
   } catch (e) {
     console.log(e);
     res.status(500).send("Internal Server Error");

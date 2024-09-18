@@ -4,13 +4,13 @@ const btnDecrease = document.querySelectorAll("[data-action='decrease']");
 btnDecrease.forEach((button) => {
   button.addEventListener("click", () => {
     const index = button.getAttribute("data-index");
-    const spanQuantity = document.querySelector(
-      `span[data-quantity="${index}"]`
+    const inputQuantity = document.querySelector(
+      `input[data-quantity="${index}"]`
     );
-    let currentQuantity = parseInt(spanQuantity.innerHTML, 10);
+    let currentQuantity = parseInt(inputQuantity.value, 10);
     if (currentQuantity > 1) {
       // Prevent going below 1
-      spanQuantity.innerHTML = currentQuantity - 1;
+      inputQuantity.value = currentQuantity - 1;
     }
   });
 });
@@ -18,11 +18,11 @@ btnDecrease.forEach((button) => {
 btnIncrease.forEach((button) => {
   button.addEventListener("click", () => {
     const index = button.getAttribute("data-index");
-    const spanQuantity = document.querySelector(
-      `span[data-quantity="${index}"]`
+    const inputQuantity = document.querySelector(
+      `input[data-quantity="${index}"]`
     );
-    let currentQuantity = parseInt(spanQuantity.innerHTML, 10);
-    spanQuantity.innerHTML = currentQuantity + 1;
+    let currentQuantity = parseInt(inputQuantity.value, 10);
+    inputQuantity.value = currentQuantity + 1;
   });
 });
 
@@ -36,33 +36,24 @@ if (btnUpdateQuantity) {
 
     arrayQuantity.forEach((item) => {
       const productID = item.getAttribute("product-id");
-      const quantity = parseInt(item.innerHTML);
+      const quantity = parseInt(item.value);
       mapProducts.push({ productID: productID, quantity: quantity });
     });
-    console.log(mapProducts);
-    
-    const form = document.createElement('form');
-    form.action = '/cart/update-quantities';
-    form.method = 'POST';
-    form.body = mapProducts;
-    form.submit();
 
-
-    fetch('/cart/update-quantities', {
-      method: 'POST',
+    fetch("/cart/update-quantities", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(mapProducts), 
+      body: JSON.stringify({ products: mapProducts }),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      window.location.reload(); 
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   });
 }
 
@@ -76,5 +67,12 @@ if (alertMessage) {
   const btnCloseAlert = document.getElementById("btn-close-alert");
   btnCloseAlert.addEventListener("click", () => {
     alertMessage.classList.add("hidden");
+  });
+}
+
+const btnBackForward = document.querySelector("[btnBackForward]");
+if (btnBackForward) {
+  btnBackForward.addEventListener("click", () => {
+    history.back();
   });
 }
