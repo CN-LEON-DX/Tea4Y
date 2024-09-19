@@ -9,7 +9,7 @@ block main
     .flex.items-center.my-8
       <i class="fa-solid fa-arrow-left-long mr-4" btnBackForward></i>
       h2.text-2xl.font-semibold Cart
-    if (cartProducts)
+    if (cartProducts &&  cartProducts.length > 0)
       form(action="/cart/update-quantities" method="POST")
         table(class="min-w-full divide-y divide-gray-200")
           thead(class="bg-gray-50")
@@ -42,12 +42,9 @@ block main
 
         .flex.justify-end.mt-6
           p(class="text-lg font-md ") Total price: #{totalPrice ? totalPrice : 0 }$
-
         .flex.justify-end.mt-6
-          button(class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-300 ease-in-out" btnUpdateQuantity type="submit") Update  quantities
-
-        .flex.justify-end.mt-6
-          a(href="/checkout" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out") Pay Now
+          button(class="bg-[#227B94] text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-300 ease-in-out" btnUpdateQuantity type="submit") Update quantities
+          a(href="/checkout" class="bg-[#16325B] text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out ml-4") Order
     else
       p.text-center.font-bold.text-bg Your cart is empty !
 
