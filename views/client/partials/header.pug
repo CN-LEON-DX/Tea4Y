@@ -35,13 +35,23 @@ header.header
             span.ml-1 Cart
             if miniCart.totalQuantity > 0
               span(class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold ml-2")  #{miniCart ? miniCart.totalQuantity : 0}
-        li
-          .flex
-            a(href="/user/login" class="text-black font-semibold hover:underline flex items-center")
-              span Login 
-            p.mx-2 |
-            a(href="/user/register" class="text-black font-semibold hover:underline flex items-center")
-              span Register 
+        if (!user)
+          li
+            .flex
+              a(href="/user/login" class="text-black font-semibold hover:underline flex items-center")
+                span Login 
+              p.mx-2 |
+              a(href="/user/register" class="text-black font-semibold hover:underline flex items-center")
+                span Register 
+        else 
+          li.flex.items-center
+            if (user.avatar)
+              img(src=user.thumbnail class="rounded-full w-[30px] h-[30px]")
+            else
+              i(class="fa-regular fa-user mr-2 pb-2")
+            p(class="font-bold text-md")= user.fullName
+          Hang
+
       .flex.items-center
         form(action="/search" class="flex")
           input(type="text" name="keyword" placeholder="Search..." class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" value=keywordSearch ? keywordSearch : "")

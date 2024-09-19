@@ -4,6 +4,7 @@ const router = express.Router();
 const controller = require("../../controllers/client/user.controller");
 const validate = require("../../validates/client/register.validate");
 
+
 router.get("/register", controller.register);
 router.post("/register", validate.registerValid, controller.registerAccount);
 
