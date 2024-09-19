@@ -26,14 +26,8 @@ header.header
             span Services 
             svg.ml-1.w-4.h-4.fill-current.text-gray-500
               use(xlink:href="#chevron-down")
+        
 
-          ul(class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg mt-2 w-48 z-10")
-            li
-              a(href="/services/service1" class="block px-4 py-2 text-black hover:bg-gray-100") Service 1
-            li
-              a(href="/services/service2" class="block px-4 py-2 text-black hover:bg-gray-100") Service 2
-            li
-              a(href="/services/service3" class="block px-4 py-2 text-black hover:bg-gray-100") Service 3
 
         li.relative
           a(href="/cart" class="text-black font-semibold flex items-center")
@@ -41,6 +35,13 @@ header.header
             span.ml-1 Cart
             span(class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold ml-2")  #{miniCart ? miniCart.totalQuantity : 0}
 
+        li
+          .flex
+            a(href="/user/signup" class="text-black font-semibold hover:underline flex items-center")
+              span SignUp
+            p.mx-2 |
+            a(href="/user/register" class="text-black font-semibold hover:underline flex items-center")
+              span Register 
       .flex.items-center
         form(action="/search" class="flex")
           input(type="text" name="keyword" placeholder="Search..." class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" value=keywordSearch ? keywordSearch : "")

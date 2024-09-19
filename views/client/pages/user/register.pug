@@ -1,0 +1,51 @@
+extends ../../layouts/default.pug
+include ../../mixins/product-layout.pug
+include ../../mixins/alert.pug
+
+
+
+block main
+  +alert-error()
+  +alert-success()
+  .container.mx-auto.p-4
+    h2.text-2xl.font-semibold.mb-6.text-center.mt-4 Create Account
+
+    form(action="/user/register", method="POST", class="bg-white shadow-md rounded w-[600px] mx-auto px-8 pt-6 pb-4  mb-4")
+      .mb-4
+        label(for="fullName", class="block text-gray-700 text-sm font-bold mb-2") Full Name:
+        input(type="text", id="fullName", name="fullName", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required)
+
+      .mb-4
+        label(for="password", class="block text-gray-700 text-sm font-bold mb-2") Password:
+        input(type="password", id="password", name="password", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required)
+
+      .mb-4
+        label(for="passwordConfirm", class="block text-gray-700 text-sm font-bold mb-2") Password confirm:
+        input(type="password", id="passwordConfirm", name="passwordConfirm", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required passwordConfirm)
+
+
+      .mb-4
+        label(for="email", class="block text-gray-700 text-sm font-bold mb-2") Email:
+        input(type="text", id="email", name="email", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required)
+
+      .mb-4
+        label(for="phone", class="block text-gray-700 text-sm font-bold mb-2") Phone number:
+        input(type="text", id="phone", name="phone", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required)
+
+        
+      
+      .flex.items-center
+        button(type="submit", class="bg-slate-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ") Register
+
+    .text-center.mt-4
+      p.text-gray-600.text-sm.mb-2 Or register with:
+      a(href="/auth/google", class="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out") 
+        i.fa-brands.fa-google.mr-4
+        p Sign in with Google
+
+    .text-center.mt-4
+      p.text-gray-600.text-sm
+        | Already have an account?
+        a(href="/login", class="text-blue-500 hover:text-blue-700 font-semibold ml-2") Register here 
+
+    script(src="/client/js/registerAcc.js") 

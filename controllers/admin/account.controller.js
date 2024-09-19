@@ -46,6 +46,13 @@ module.exports.createAccount = async (req, res) => {
 // POST /admin/account/create
 module.exports.addAccount = async (req, res) => {
   try {
+    const accExist = await Accounts.findOne({ email: req.body.email });
+    if (accExist) {
+      req.flash("error", "Email already exist !");
+      res.redirect("back");
+      return;
+    }
+
     req.body.password = md5(req.body.password);
     const data = req.body;
     const account = new Accounts(data);
