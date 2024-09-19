@@ -1394,6 +1394,10 @@ video {
   padding-top: 1.5rem;
 }
 
+.pt-8 {
+  padding-top: 2rem;
+}
+
 .pt-\[15px\] {
   padding-top: 15px;
 }

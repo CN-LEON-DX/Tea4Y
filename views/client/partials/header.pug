@@ -33,12 +33,12 @@ header.header
           a(href="/cart" class="text-black font-semibold flex items-center")
             <i class="fa-solid fa-cart-shopping"></i>
             span.ml-1 Cart
-            span(class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold ml-2")  #{miniCart ? miniCart.totalQuantity : 0}
-
+            if miniCart.totalQuantity > 0
+              span(class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold ml-2")  #{miniCart ? miniCart.totalQuantity : 0}
         li
           .flex
-            a(href="/user/signup" class="text-black font-semibold hover:underline flex items-center")
-              span SignUp
+            a(href="/user/login" class="text-black font-semibold hover:underline flex items-center")
+              span Login 
             p.mx-2 |
             a(href="/user/register" class="text-black font-semibold hover:underline flex items-center")
               span Register 
