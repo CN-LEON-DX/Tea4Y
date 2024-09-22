@@ -3,9 +3,8 @@ const md5 = require("md5");
 
 const ForgotPassword = require("../../models/forgotPassword.model");
 const genOTP = require("../../helpers/generateToken.helper");
-
-
-// sendMail helpers 
+const Cart = require("../../models/cart.model");
+// sendMail helpers
 const sendMailHelpers = require("../../helpers/sendMail.helper");
 
 module.exports.register = async (req, res) => {
@@ -71,6 +70,16 @@ module.exports.loginAccount = async (req, res) => {
   }
 
   res.cookie("tokenUser", userExist.token);
+
+  // save user_id to cart collection
+  console.log(userExist.id);
+  console.log(req.cookies.cartID);
+
+  await Cart.updateOne({
+    _id: req.cookies.cartID
+  }, {
+    userID: userExist.id,
+  });
   res.redirect("/");
 };
 
@@ -107,8 +116,6 @@ module.exports.forgotPasswordPost = async (req, res) => {
   const forgotPassword = new ForgotPassword(objForgotPassword);
   forgotPassword.save();
 
-
-
   // send OTP via email
 
   const subject = `OTP verification code`;
@@ -121,8 +128,6 @@ module.exports.forgotPasswordPost = async (req, res) => {
     `/user/password/otp-password?email=${encodeURIComponent(email)}`
   );
 };
-
-
 
 module.exports.otpPassword = async (req, res) => {
   const email = req.query.email;
@@ -166,20 +171,21 @@ module.exports.resetPasswordPost = async (req, res) => {
   const tokenUser = req.cookies.tokenUser;
 
   // update password for user
-  await User.updateOne({
-    token: tokenUser
-  }, {
-    password: md5(password)
-  });
+  await User.updateOne(
+    {
+      token: tokenUser,
+    },
+    {
+      password: md5(password),
+    }
+  );
 
   req.flash("success", "Change password successfully !");
   res.redirect("/");
-
 };
-
 
 module.exports.infoUser = async (req, res) => {
   res.render("client/pages/user/infor", {
     pageTitle: "Info user",
-  })
-}
+  });
+};
