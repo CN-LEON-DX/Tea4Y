@@ -2,35 +2,39 @@ extends ../../layouts/default.pug
 include ../../mixins/product-layout.pug
 include ../../mixins/alert.pug
 
-
-
 block main
   +alert-error()
   +alert-success()
   .container.mx-auto.p-4.mb-6
-    h2.text-2xl.font-semibold.mb-8.text-center.mt-8 Create Account
+    h2.text-2xl.font-semibold.mb-8.text-center.mt-8 Login Account
 
-    form(action="/user/login", method="POST", class="bg-white shadow-md rounded w-[600px] mx-auto px-8 pt-8 pb-4  mb-4")
+    form(action="/user/login", method="POST", class="bg-white shadow-md rounded w-[600px] mx-auto px-8 pt-8 pb-8 mb-4")
       .mb-8
-        label(for="email", class="block text-gray-700 text-sm font-bold mb-2") Email:
+        label(for="email", class="block text-gray-700 text-sm font-bold mb-2") Email
         input(type="text", id="email", name="email", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required)
 
-      .mb-8
-        label(for="password", class="block text-gray-700 text-sm font-bold mb-2") Password:
+      .mb-8.relative
+        label(for="password", class="block text-gray-700 text-sm font-bold mb-2") Password
         input(type="password", id="password", name="password", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required)
-      
-      .flex.items-center
-        button(type="submit", class="bg-slate-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ") Login
+        button(type="button" class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-600" id="togglePassword")
+          i.fa-solid.fa-eye-slash.absolute.top-10.right-4(id="eyeIcon")
 
-    .text-center.mt-8
+      .flex.items-center.justify-center
+        button(type="submit", class="bg-slate-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full") Login
+
+    .text-center.mt-4
+      a(href="/user/password/forgot" class="text-blue-500") Forgot password?
+    
+    .text-center.mt-4
       p.text-gray-600.text-sm.mb-2 Or login with:
       a(href="/auth/google", class="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out") 
         i.fa-brands.fa-google.mr-4
-        p Login with Google account
+        | Login with Google account
 
     .text-center.mt-6
       p.text-gray-600.text-sm
         | You haven't an account 
         a(href="/user/register", class="text-blue-500 hover:text-blue-700 font-semibold ml-2") Register
 
-    script(src="/client/js/userAuth.js") 
+    script(src="/client/js/userAuth.js")
+

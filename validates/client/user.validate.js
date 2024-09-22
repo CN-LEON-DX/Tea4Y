@@ -69,3 +69,30 @@ module.exports.loginValid = async (req, res, next) => {
 
   next();
 };
+
+module.exports.forgotPassword = async (req, res, next) => {
+  const emailPattern = /^[0-9a-zA-Z._%+-]+@[0-9a-zA-Z.-]+\.[a-zA-Z]{2,}$/;
+
+  if (!emailPattern.test(req.body.email)) {
+    req.flash("error", "Please enter a valid email.");
+    return res.redirect("back");
+  }
+  next();
+};
+
+module.exports.passwordMatch = async (req, res, next) => {
+  const { password, passwordConfirm } = req.body;
+
+  const passwordPattern = /^[A-Za-z\d@#?!%&*]{8,}$/;
+  if (!passwordPattern.test(password)) {
+    req.flash("error", "Password must be at least 8 characters long.");
+    return res.redirect("back");
+  }
+
+  if (password !== passwordConfirm) {
+    req.flash("error", "Password and confirmation must be the same!");
+    return res.redirect("back");
+  }
+
+  next();
+};

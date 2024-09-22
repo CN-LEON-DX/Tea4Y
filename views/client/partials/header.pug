@@ -5,6 +5,12 @@ header.header
         img(src="/client/images/home.jpeg", alt="Logo" class="w-12 h-12 rounded-full mr-6")
 
     .inner-menu.flex.items-center.space-x-8
+      .flex.items-center
+        form(action="/search" class="flex")
+          input(type="text" name="keyword" placeholder="Search..." class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" value=keywordSearch ? keywordSearch : "")
+          button(class="bg-black text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300 ease-in-out" type="submit") 
+            | Search
+
       ul.flex.space-x-4
         li
           a(href="/" class="text-black font-semibold hover:underline") Home
@@ -49,11 +55,9 @@ header.header
               img(src=user.thumbnail class="rounded-full w-[30px] h-[30px]")
             else
               i(class="fa-regular fa-user mr-2 pb-2")
-            p(class="font-bold text-md")= user.fullName
-          Hang
+            a(class="font-bold text-md" href="/user/info")= user.fullName
+          li
+            a(href="/user/logout")
+              i(class="fa-solid fa-arrow-right-from-bracket")
 
-      .flex.items-center
-        form(action="/search" class="flex")
-          input(type="text" name="keyword" placeholder="Search..." class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" value=keywordSearch ? keywordSearch : "")
-          button(class="bg-black text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300 ease-in-out" type="submit") 
-            | Search
+      

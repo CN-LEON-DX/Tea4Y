@@ -2,7 +2,7 @@
 const systemConfig = require("../../config/system");
 const Cart = require("../../models/cart.model");
 const Product = require("../../models/product.model");
-const productHelper = require("../../helpers/products");
+const productHelper = require("../../helpers/products.helper");
 const Order = require("../../models/order.model");
 
 module.exports.index = async (req, res) => {

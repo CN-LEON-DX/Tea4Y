@@ -1,6 +1,6 @@
 // [GET] /products
 
-const productsHelper = require("../../helpers/products");
+const productsHelper = require("../../helpers/products.helper");
 const Product = require("../../models/product.model");
 const Category = require("../../models/category.model");
 const systemConfig = require("../../config/system");

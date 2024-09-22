@@ -1,7 +1,13 @@
+// Import the dotenv package and configure it
 require("dotenv").config();
-const mongoose = require("mongoose");
 
-const connectionString = process.env.MONGO_URI;
+const mongoose = require("mongoose");
+MONGO_URI =
+  "mongodb+srv://cn14-leon-dx:" +
+  process.env.PASSWORD_MONGO +
+  "@tea4y.dxk4h.mongodb.net/product-management?retryWrites=true&w=majority";
+
+const connectionString = MONGO_URI;
 
 module.exports.connectDB = async () => {
   try {
@@ -11,3 +17,5 @@ module.exports.connectDB = async () => {
     console.error("Failed to connect to MongoDB:", e);
   }
 };
+
+

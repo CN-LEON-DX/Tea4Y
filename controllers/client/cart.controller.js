@@ -2,7 +2,7 @@
 const systemConfig = require("../../config/system");
 const Cart = require("../../models/cart.model");
 const Product = require("../../models/product.model");
-const productHelper = require("../../helpers/products");
+const productHelper = require("../../helpers/products.helper");
 module.exports.addPostProduct = async (req, res) => {
   try {
     const cartID = req.cookies.cartID;

@@ -10,3 +10,17 @@ if (alertMessage) {
     alertMessage.classList.add("hidden");
   });
 }
+
+const togglePasswordButton = document.getElementById("togglePassword");
+  const passwordInput = document.getElementById("password");
+  const eyeIcon = document.getElementById("eyeIcon");
+
+  togglePasswordButton.addEventListener("click", function () {
+    // Toggle the input type
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    
+    // Toggle the eye icon classes
+    eyeIcon.classList.toggle("fa-eye");
+    eyeIcon.classList.toggle("fa-eye-slash");
+  });

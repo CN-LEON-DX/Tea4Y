@@ -1,7 +1,7 @@
 // [GET] /home
 const Product = require("../../models/product.model");
 const systemConfig = require("../../config/system");
-const productsHelper = require("../../helpers/products");
+const productsHelper = require("../../helpers/products.helper");
 
 module.exports.index = async (req, res) => {
   // get featured products
