@@ -80,6 +80,7 @@ module.exports.loginAccount = async (req, res) => {
   }, {
     userID: userExist.id,
   });
+  
   res.redirect("/");
 };
 
