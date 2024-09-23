@@ -7,6 +7,11 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
+
+// socketio 
+const http = require('http');
+const { Server } = require("socket.io");
+
 var flash = require("express-flash");
 
 const moment = require("moment");
@@ -40,6 +45,17 @@ const port = process.env.PORT;
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
+
+// socketio
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
+// end socketio
+
 // use folder public
 // tinymce
 app.use(express.static(`${__dirname}/public`));
@@ -64,6 +80,6 @@ app.get("*", (req, res) => {
   });
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
