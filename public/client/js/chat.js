@@ -1,5 +1,5 @@
 const formSendData = document.querySelector(".inner-form");
-
+import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
 if (formSendData) {
   formSendData.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -52,3 +52,22 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
 });
 
 // end SERVER_RETURN_MESSAGE
+
+// emoj picker
+const emojPicker = document.querySelector("emoji-picker");
+if (emojPicker) {
+  const inputChat = document.getElementById("inputChat");
+  emojPicker.addEventListener("emoji-click", (event) => {
+    const icon = event.detail.unicode;
+    inputChat.value = inputChat.value + icon;
+  });
+}
+
+const btnIcon = document.querySelector(".btnIcon");
+const tooltip = document.querySelector(".tooltip");
+Popper.createPopper(btnIcon, tooltip);
+
+document.querySelector(".btnIcon").onclick = () => {
+  tooltip.classList.toggle("shown");
+};
+// emoj picker
