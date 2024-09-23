@@ -1,8 +1,10 @@
+const { isObjectIdOrHexString } = require("mongoose");
 const Chat = require("../../models/chats.model");
 const User = require("../../models/user.model");
 
 module.exports.index = async (req, res) => {
   const userID = res.locals.user.id;
+  const fullName = res.locals.user.fullName;
 
   // socket io
 
@@ -15,15 +17,21 @@ module.exports.index = async (req, res) => {
         content: content,
       });
       await chat.save();
+
+      // after send message return this msg to client
+      _io.emit("SERVER_RETURN_MESSAGE", {
+        userID: userID,
+        fullName: fullName,
+        content: content,
+      });
     });
   });
   // end socket io
 
   // get data
   const chats = await Chat.find({ deleted: false });
-  console.log(chats);
 
-  for (const chat of chats){
+  for (const chat of chats) {
     const inforUser = await User.findOne({
       _id: chat.userID,
     }).select("fullName");

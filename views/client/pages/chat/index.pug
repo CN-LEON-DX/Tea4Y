@@ -7,29 +7,29 @@ block main
 
   .container.mx-auto.p-4.h-screen
     h2.my-4.font-bold.text-lg Chatbot
-    .chat-box.border.rounded-lg.shadow-lg.p-4.mx-auto(class="w-[1000px] h-[600px] relative")
-      if(chats)
-        each msg in chats
-          if msg.userID == user.id
-            .message.user.mb-4.flex.justify-end
-              .flex.flex-col.items-end
-                .text-right.text-sm.text-gray-600= msg.inforUser.fullName
-                .bg-blue-500.text-white.p-2.rounded-lg.max-w-xs
-                  div #{msg.content}
-          else
-            .message.system.mb-4.flex.justify-start
-              .flex.flex-col.items-start
-                .text-left.text-sm.text-gray-600= msg.inforUser.fullName
-                .bg-gray-300.text-gray-800.p-2.rounded-lg.max-w-xs
-                  div #{msg.content}
-      else
-        span Start
+    .border.rounded-lg.shadow-lg.mx-auto.p-4(class="w-[1000px] h-[600px] flex flex-col" )
+      .messages.flex-1.overflow-y-auto.p-4.chat-box(chatID=user.id)
+        if(chats)
+          each msg in chats
+            if msg.userID == user.id
+              .message.user.mb-4.flex.justify-end
+                .flex.flex-col.items-end
+                  .bg-blue-500.text-white.p-2.rounded-lg.max-w-xs
+                    div #{msg.content}
+            else
+              .message.system.mb-4.flex.justify-start
+                .flex.flex-col.items-start
+                  .text-left.text-sm.text-gray-600= msg.inforUser.fullName
+                  .bg-gray-300.text-gray-800.p-2.rounded-lg.max-w-xs
+                    div #{msg.content}
+        else
+          span Start
 
-      .input-area.mt-4.absolute.bottom-4.w-full
-        form.flex.w-full.pr-8(class="inner-form")
-            input(type="text" name="content" placeholder="Type your message..." class="border rounded-lg p-2 flex-1 outline-none")
-            button(type="submit" class="bg-slate-800 text-white rounded-lg p-2 ml-2")
-              i(class="fa-solid fa-paper-plane px-4")
+      .input-area.mt-4
+        form.flex.w-full(class="inner-form")
+          input(type="text" name="content" placeholder="Type your message..." class="border rounded-lg p-2 flex-1 outline-none")
+          button(type="submit" class="bg-slate-800 text-white rounded-lg p-2 ml-2")
+            i(class="fa-solid fa-paper-plane px-4")
 
   script(src="/socket.io/socket.io.js") 
   script(src="/client/js/socketio.js")

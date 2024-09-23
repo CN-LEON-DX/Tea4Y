@@ -10,9 +10,13 @@ const settingsRouters = require("./setting.route");
 
 const authMiddleware = require("../../middlewares/admin/auth.middleware");
 
+const authController = require("../../controllers/admin/auth.controller");
+
 module.exports = (app) => {
-  console.log("admin route");
   const PATH_ADMIN = systemConfig.prefixAdmin;
+
+  app.get(PATH_ADMIN + "/", authController.login);
+
   app.use(
     PATH_ADMIN + "/dashboard",
     authMiddleware.requireAuth,
@@ -24,9 +28,18 @@ module.exports = (app) => {
     authMiddleware.requireAuth,
     categoryRouters
   );
+
   app.use(PATH_ADMIN + "/roles", authMiddleware.requireAuth, roleRouters);
   app.use(PATH_ADMIN + "/accounts", authMiddleware.requireAuth, accountRouters);
-  app.use(PATH_ADMIN + "/my-account", authMiddleware.requireAuth, myAccountRouters);
-  app.use(PATH_ADMIN + "/settings", authMiddleware.requireAuth, settingsRouters);
+  app.use(
+    PATH_ADMIN + "/my-account",
+    authMiddleware.requireAuth,
+    myAccountRouters
+  );
+  app.use(
+    PATH_ADMIN + "/settings",
+    authMiddleware.requireAuth,
+    settingsRouters
+  );
   app.use(PATH_ADMIN + "/auth", authRouters);
 };

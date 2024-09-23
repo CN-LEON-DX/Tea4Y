@@ -21,6 +21,7 @@ module.exports = (app) => {
   app.use(settingMiddleware.settingGeneral);
 
   app.use("/", homeRouters);
+  
   app.use("/products", productRouters);
   app.use("/search", searchRouter);
   app.use("/cart", cartRouter);
