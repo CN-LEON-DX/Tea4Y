@@ -72,15 +72,13 @@ module.exports.loginAccount = async (req, res) => {
   res.cookie("tokenUser", userExist.token);
 
   // save user_id to cart collection
-  console.log(userExist.id);
-  console.log(req.cookies.cartID);
 
   await Cart.updateOne({
     _id: req.cookies.cartID
   }, {
     userID: userExist.id,
   });
-  
+
   res.redirect("/");
 };
 

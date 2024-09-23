@@ -2,10 +2,48 @@ extends ../../layouts/default.pug
 include ../../mixins/tableCategory.pug
 include ../../mixins/alert.pug
 include ../../partials/sider.pug
+
 block main
     +alert-error()
     +alert-success()
+    
     div(class="flex")
         +sider()
+        
         div(class="list-product flex-grow p-4 relative")
             h2(class="title text-2xl font-bold mb-4") Dashboard
+            
+            .grid.grid-cols-2.gap-4
+                // Danh mục sản phẩm
+                .bg-white.shadow-lg.rounded-lg.p-4
+                    h3.text-lg.font-semibold Danh Mục Sản Phẩm
+                    p Số lượng: #{categoryCount} 
+
+                // Sản phẩm
+                .bg-white.shadow-lg.rounded-lg.p-4
+                    h3.text-lg.font-semibold Sản Phẩm
+                    p Số lượng: #{productCount} 
+
+                // Tài khoản Admin
+                .bg-white.shadow-lg.rounded-lg.p-4
+                    h3.text-lg.font-semibold Tài Khoản Admin
+                    p Số lượng: #{adminCount} 
+
+                // Tài khoản Client
+                .bg-white.shadow-lg.rounded-lg.p-4
+                    h3.text-lg.font-semibold Tài Khoản Client
+                    p Số lượng: #{clientCount} 
+
+                // Số lượng User
+                .bg-white.shadow-lg.rounded-lg.p-4
+                    h3.text-lg.font-semibold Số Lượng User
+                    p Tổng số user: #{userCount} 
+
+                // Thông tin khác (nếu cần)
+                .bg-white.shadow-lg.rounded-lg.p-4
+                    h3.text-lg.font-semibold Thông Tin Khác
+                    p Có thể thêm thông tin khác tại đây
+
+    // Thêm footer nếu cần
+    footer.mt-8.text-center
+        p © 2024 Công ty của bạn

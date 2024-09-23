@@ -1,0 +1,22 @@
+extends ../../layouts/default.pug
+include ../../mixins/product-layout.pug
+
+block main
+  .container.mx-auto.flex.flex-col.items-center.justify-center.h-screen.text-center
+    h1.text-6xl.font-bold.text-gray-800 404
+    h2.text-4xl.font-semibold.text-gray-600 Page Not Found
+    p.text-lg.text-gray-500.mb-8 We're sorry, but the page you are looking for does not exist.
+    p
+      | You can go back to the 
+      a(href='/' class="text-blue-500 hover:underline") Home page
+      |  or check out some of our popular links:
+    ul.mt-4
+      li
+        a(href='/products' class="text-blue-500 hover:underline") Our Products
+      li
+        a(href='/about' class="text-blue-500 hover:underline") About Us
+      li
+        a(href='/contact' class="text-blue-500 hover:underline") Contact Us
+    p.mt-6
+      | If you believe this is a mistake, please 
+      a(href='/support' class="text-blue-500 hover:underline") contact support.

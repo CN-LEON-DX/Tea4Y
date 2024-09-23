@@ -1,0 +1,43 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../partials/sider.pug
+
+block main
+    if roles.permissions.includes('product-edit')
+        +alert-error()
+        +alert-success()
+        div.flex
+            +sider()
+            div.list-product.flex-grow.p-4.relative
+                h2(class="title text-2xl font-bold mb-4") Settings
+
+                form(class="grid grid-cols-[1fr,2fr] gap-8" method="POST" action=`${prefixAdmin}/settings/general?_method=PATCH` enctype="multipart/form-data")
+                    div
+                        label(for="websiteName" class="mb-2 block font-semibold") Website Display Name
+                        input(type="text" name="websiteName" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${settings.websiteName && settings ? settings.websiteName: "Empty"}` required)
+
+                        label(for="phone" class="mb-2 block font-semibold") Phone
+                        input(type="tel" name="phone" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${settings.phone && settings ? settings.phone: "Empty"}` required)
+
+                        label(for="email" class="mb-2 block font-semibold") Email
+                        input(type="email" name="email" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${settings.email && settings ? settings.email: "Empty"}` required)
+
+                        label(for="address" class="mb-2 block font-semibold") Address
+                        input(type="text" name="address" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${settings.address && settings ? settings.address: "Empty"}`)
+
+                        label(for="copyright" class="mb-2 block font-semibold") Copyright
+                        input(type="text" name="copyright" class="w-full p-2 mb-4 border border-gray-300 rounded" value=`${settings.copyright && settings ? settings.copyright: "Empty"}`)
+
+                    div
+                        div(upload-image)
+                            label(for="logo" class="mb-2 block font-semibold") Logo
+                            input(type="file" accept="image/*" name="logo" id="logo" upload-image-input class="w-full p-2 mb-4 border border-gray-300 rounded" title="product.png")
+                            img(src=settings.logo upload-image-preview class="object-cover mb-4" style="width: 80px; height: 80px;")
+
+                    div(class="col-span-2 absolute right-[20px] top-[20px]")
+                        button(type="submit" id="btnUpdate" class="bg-slate-700 text-white px-4 py-2 rounded") Update
+        
+        script(src="/admin/js/settings.js") 
+    else
+        h1(class="text-2xl text-center") You don't have permission to edit product
+        a(href=`${prefixAdmin}/products` class="block text-center text-blue-500") Back to list product
