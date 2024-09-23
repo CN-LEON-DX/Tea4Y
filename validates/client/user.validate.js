@@ -3,31 +3,13 @@ module.exports.registerValid = async (req, res, next) => {
 
   const emailPattern = /^[0-9a-zA-Z._%+-]+@[0-9a-zA-Z.-]+\.[a-zA-Z]{2,}$/;
 
-  const fullNamePattern = /^[A-Za-z]{6,}$/;
-
-  const phonePattern = /^0[1-9]\d{8}$/;
+  const phonePattern = /^0[1-9]{8, }$/;
 
   const passwordPattern =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@#?!%&*]{8,}$/;
 
   if (!emailPattern.test(user.email)) {
     req.flash("error", "Please enter a valid email.");
-    return res.redirect("back");
-  }
-
-  if (!fullNamePattern.test(user.fullName)) {
-    req.flash(
-      "error",
-      "Full name must be at least 6 characters long and can include spaces or special characters."
-    );
-    return res.redirect("back");
-  }
-
-  if (!phonePattern.test(user.phone)) {
-    req.flash(
-      "error",
-      "Please enter a valid phone number (starts with 0 and has 10 digits)."
-    );
     return res.redirect("back");
   }
 
