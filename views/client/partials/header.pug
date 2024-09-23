@@ -32,8 +32,6 @@ header.header
             span Services 
             svg.ml-1.w-4.h-4.fill-current.text-gray-500
               use(xlink:href="#chevron-down")
-        
-
 
         li.relative
           a(href="/cart" class="text-black font-semibold flex items-center")
@@ -41,6 +39,10 @@ header.header
             span.ml-1 Cart
             if miniCart.totalQuantity > 0
               span(class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold ml-2")  #{miniCart ? miniCart.totalQuantity : 0}
+        if (user)
+          a(href="/chat" class="text-black font-semibold hover:underline flex items-center")
+            span Chat 
+        
         if (!user)
           li
             .flex
