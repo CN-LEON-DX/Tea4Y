@@ -25,6 +25,17 @@ module.exports.index = async (req, res) => {
         content: content,
       });
     });
+
+    socket.on("CLIENT_SEND_TYPING", async () => {
+      socket.broadcast.emit("SERVER_RETURN_TYPING", {
+        userID: userID,
+        fullName: fullName,
+      });
+    });
+
+    socket.on("CLIENT_STOP_TYPING", async () => {
+      socket.broadcast.emit("SERVER_STOP_TYPING", userID);
+    });
   });
   // end socket io
 
