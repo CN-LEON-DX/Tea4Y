@@ -604,10 +604,6 @@ video {
   position: relative;
 }
 
-.sticky {
-  position: sticky;
-}
-
 .inset-0 {
   inset: 0px;
 }
@@ -619,10 +615,6 @@ video {
 
 .bottom-0 {
   bottom: 0px;
-}
-
-.bottom-4 {
-  bottom: 1rem;
 }
 
 .bottom-\[30px\] {
@@ -1467,10 +1459,6 @@ video {
 
 .pr-4 {
   padding-right: 1rem;
-}
-
-.pr-8 {
-  padding-right: 2rem;
 }
 
 .pr-\[60px\] {

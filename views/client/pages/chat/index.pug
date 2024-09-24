@@ -3,8 +3,6 @@ include ../../mixins/alert.pug
 
 block styles
   style.
-    block styles
-  style.
     .tooltip {
       visibility: hidden;
     }
@@ -18,6 +16,7 @@ block styles
       font-size: 0.9rem;
       color: #666;
     }
+  
 
 
 block main
@@ -47,13 +46,17 @@ block main
       .input-area.mt-4
         form.flex.w-full.items-center(class="inner-form")
           span.btnIcon.items-center.text-xl.mr-4
-            <i class="fa-solid fa-plus"></i>
+            img(src="client/images/plus-solid.svg" alt="Add Icon" width="24" height="24")
           .tooltip.absolute.top-0(role="tooltip")
             emoji-picker
+
+          div(class="custom-file-container" data-upload-id="uploadImage")
+
           input(type="text" id="inputChat" name="content" placeholder="Type your message..." class="border rounded-lg p-2 flex-1 outline-none")
           button(type="submit" class="bg-slate-800 text-white rounded-lg p-2 ml-2")
             i(class="fa-solid fa-paper-plane px-4")
 
   script(src="/socket.io/socket.io.js") 
   script(src="/client/js/socketio.js")
+  script(type="module" src="https://unpkg.com/file-upload-with-preview/dist/index.js" ) 
   script(type="module" src="/client/js/chat.js")

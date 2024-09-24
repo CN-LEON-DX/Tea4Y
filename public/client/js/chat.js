@@ -1,5 +1,6 @@
 const formSendData = document.querySelector(".inner-form");
 import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
+
 if (formSendData) {
   formSendData.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -115,3 +116,8 @@ socket.on("SERVER_STOP_TYPING", (userID) => {
     delete typingIndicators[userID];
   }
 });
+
+// file-upload
+// const upload = new FileUploadWithPreview.FileUploadWithPreview("uploadImage");
+// file-upload
+console.log(document.querySelector(".custom-file-container"));
